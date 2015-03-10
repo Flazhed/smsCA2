@@ -9,8 +9,56 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="javascript.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="main.css">
     </head>
     <body>
-        <div>TODO write content</div>
+
+        <div class="jumbotron">
+            <h1>Project CA2</h1>
+            <p>To be or not to be MLG</p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">View Documentation here!</a></p>
+        </div>
+        
+        <p id="test"></p>
+
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="searchInput">Search:</label>
+                <input type="text" class="form-control" id="searchInput" placeholder="Search here">
+            </div>
+            <button id="sendReq" type="button" class="btn btn-default">Send request!</button>
+        </form>
+        <br>
+        <form class="form-inline" id="personInput">
+            <div class="form-group">
+                <label for="exampleInputName2">Name</label>
+                <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+                <label for="exampleInputEmail2">Lastname</label>
+                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                <label for="exampleInputEmail2">phone</label>
+                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="exampleInputName2">Name</label>
+                <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+                <label for="exampleInputEmail2">Lastname</label>
+                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                <label for="exampleInputEmail2">phone</label>
+                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+            </div>
+        </form>
+        <br>
+        <div>
+            <input type="text" class="form-control" id="searchInput2" placeholder="Search here!">
+            <table id='tableData' class='table table-striped'>
+                <thead><th>data:</th><th>data:</th><th>data:</th></thead>
+            <tr id="tableInsertion"></tr>
+            </table>
+        </div>
+
     </body>
 </html>
