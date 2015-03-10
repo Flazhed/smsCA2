@@ -68,6 +68,16 @@ public class InfoEntity implements Serializable {
         phoneNumbers.add(phone);
         
     }
+
+    public List<Phone> getPhoneNumbers() {
+        return phoneNumbers;
+    }
+
+    public void setPhoneNumbers(List<Phone> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
+    }
+
+   
     
     
 }

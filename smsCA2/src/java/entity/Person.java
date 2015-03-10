@@ -17,15 +17,15 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p")})
+    @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
+    @NamedQuery(name = "Person.findByPhone", query = "SELECT p FROM Person p")})
 public class Person extends InfoEntity {
-   
+
     private String firstName;
     private String lastName;
     @ManyToMany
     private List<Hobby> hobbies;
-    
-    
+
     public Person() {
     }
 
@@ -35,7 +35,6 @@ public class Person extends InfoEntity {
         this.lastName = lastName;
     }
 
-    
     public String getFirstName() {
         return firstName;
     }
@@ -59,15 +58,12 @@ public class Person extends InfoEntity {
     public void setHobbies(List<Hobby> hobbies) {
         this.hobbies = hobbies;
     }
-    
-    
-    
-    public void addHobby(Hobby hobby){
-        
+
+    public void addHobby(Hobby hobby) {
+
         hobby.getPersons().add(this);
         hobbies.add(hobby);
-        
+
     }
-    
-    
+
 }

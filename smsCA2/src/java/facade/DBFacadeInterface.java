@@ -5,10 +5,10 @@
  */
 package facade;
 
-import entity.CityInfo;
 import entity.Company;
-import entity.Hobby;
+import entity.InfoEntity;
 import entity.Person;
+import entity.Phone;
 import java.util.List;
 
 /**
@@ -16,7 +16,9 @@ import java.util.List;
  * @author Søren
  */
 public interface DBFacadeInterface {
-    
+  
+  public Phone addPhoneNumber(Phone phone);//Skal nok ikke bruges for real
+  public InfoEntity addPhoneNumberToEntity(InfoEntity infoEntity, Phone phone);
   public List<Person> getPersonsList();
   public Person getPersonByID(int id);
   public List<Company> getCompaniesList();
@@ -25,6 +27,6 @@ public interface DBFacadeInterface {
   public Company addCompany(Company company);
   public Person editPerson(Person person);
   public Company editCompany(Company company);
-  
+  public Person getPersonByPhoneNumber(String phoneNumber);
   
 }

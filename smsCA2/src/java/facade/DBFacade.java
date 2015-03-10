@@ -1,7 +1,9 @@
 package facade;
 
 import entity.Company;
+import entity.InfoEntity;
 import entity.Person;
+import entity.Phone;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -103,6 +105,30 @@ public class DBFacade implements DBFacadeInterface {
         em.getTransaction().commit();
         return company;
         
+    }
+
+    @Override
+    public Person getPersonByPhoneNumber(String phoneNumber) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Phone addPhoneNumber(Phone phone) {
+        
+        em.getTransaction().begin();
+        em.persist(phone);
+        em.getTransaction().commit();
+        return phone;
+    }
+
+    @Override
+    public InfoEntity addPhoneNumberToEntity(InfoEntity infoEntity, Phone phone) {
+        em.getTransaction().begin();
+        em.persist(phone);
+        infoEntity.addPhoneNumber(phone);
+        em.merge(infoEntity);
+        em.getTransaction().commit();
+        return infoEntity;
     }
 
 }
