@@ -13,6 +13,7 @@ and open the template in the editor.
         <script src="javascript.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="main.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     </head>
     <body>
 
@@ -29,35 +30,113 @@ and open the template in the editor.
                 <label for="searchInput">Search:</label>
                 <input type="text" class="form-control" id="searchInput" placeholder="Search here">
             </div>
-            <button id="sendReq" type="button" class="btn btn-default">Send request!</button>
+            <button id="sendReq" type="button" class="btn btn-default">Go!</button>
+            <div class="dropdown" style="float:right">
+                
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">    
+      
+      Create new
+   
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" >
+    <li role="presentation"><a href="#" id="createPerson">Create person</a></li>
+    <li role="presentation"><a href="#" id="createCompany">Create company</a></li>
+  </ul>
+</div>
         </form>
+        
         <br>
-        <form class="form-inline" id="personInput">
-            <div class="form-group">
-                <label for="exampleInputName2">Name</label>
-                <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                <label for="exampleInputEmail2">Lastname</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-                <label for="exampleInputEmail2">phone</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+<form class="form-horizontal" id="personInput">
+
+        <div class="form-group">
+            <label for="inputPersonName" class="control-label col-xs-2">Firstname</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="inputPersonName" placeholder="...">
             </div>
-            <br>
-            <div class="form-group">
-                <label for="exampleInputName2">Name</label>
-                <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-                <label for="exampleInputEmail2">Lastname</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-                <label for="exampleInputEmail2">phone</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="control-label col-xs-2">Lastname</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="inputLastname" placeholder="...">
             </div>
-        </form>
+        </div>
+            <div class="form-group">
+            <label for="inputPassword" class="control-label col-xs-2">Phone no</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="inputPhone" placeholder="...">
+            </div>
+        </div>
+            <div class="form-group">
+            <label for="inputPassword" class="control-label col-xs-2">Email</label>
+            <div class="col-xs-10">
+                <input type="email" class="form-control" id="inputPersonEmail" placeholder="...">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-10">
+                <button type="submitPerson" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+
+</form>
+        <form class="form-horizontal" id="companyInput">
+
+        <div class="form-group">
+            <label for="inputEmail" class="control-label col-xs-2">Name</label>
+            <div class="col-xs-10">
+                <input type="email" class="form-control" id="inputEmail" placeholder="...">
+            </div>
+        </div>
+                        <div class="form-group">
+            <label for="inputPassword4" class="control-label col-xs-2">Email</label>
+            <div class="col-xs-10">
+                <input type="password" class="form-control" id="inputPassword4" placeholder="...">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword3" class="control-label col-xs-2">Description</label>
+            <div class="col-xs-10">
+                <input type="password" class="form-control" id="inputPassword3" placeholder="...">
+            </div>
+        </div>
+            <div class="form-group">
+            <label for="inputPassword2" class="control-label col-xs-2">CVR </label>
+            <div class="col-xs-10">
+                <input type="password" class="form-control" id="inputPassword2" placeholder="...">
+            </div>
+        </div>
+            <div class="form-group">
+            <label for="inputPassword1" class="control-label col-xs-2">Number Employees</label>
+            <div class="col-xs-10">
+                <input type="password" class="form-control" id="inputPassword1" placeholder="...">
+            </div>
+        </div>
+            <div class="form-group">
+            <label for="inputPassword" class="control-label col-xs-2">Market value</label>
+            <div class="col-xs-10">
+                <input type="password" class="form-control" id="inputPassword" placeholder="...">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-10">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+
+</form>
+
         <br>
         <div>
-            <input type="text" class="form-control" id="searchInput2" placeholder="Search here!">
+            <input type="text" class="form-control" id="searchInput2" placeholder="Filter option">
             <table id='tableData' class='table table-striped'>
-                <thead><th>data:</th><th>data:</th><th>data:</th></thead>
-            <tr id="tableInsertion"></tr>
+                <thead><th>edit:</th><th>data:</th><th>data:</th><th>data:</th></thead>
+
+
+
             </table>
+            <img id="spinner" src="http://www.labricole.be/wp-content/uploads/AAPL/loaders/Teddy%20Bear%20Loading.gif" >
         </div>
 
     </body>
