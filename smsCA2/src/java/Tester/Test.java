@@ -80,7 +80,9 @@ public class Test {
 //        dbf.addHobbyToPerson(dbf.getHobbyById(401), dbf.getPersonByID(51));
 //        dbf.addHobbyToPerson(dbf.getHobbyById(401), dbf.getPersonByID(351));
         //System.out.println(dbf.getPersonsByHobby(dbf.getHobbyById(401)).size());
-        
+        System.out.println(dbf.getPersonCountByHobby(dbf.getHobbyById(486)));
+        System.out.println(dbf.getAllCityInfos().size());
+        System.out.println(dbf.getCompaniesByEmployeeCount(4).size());
     }
     
 }

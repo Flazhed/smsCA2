@@ -41,6 +41,9 @@ public interface DBFacadeInterface {
   public InfoEntity addAddressToInfoEntity(Address address, InfoEntity infoEntity);
   public Hobby getHobbyById(int id);
   public List<Person> getPersonsByZipCode(int zipCode);
+  public long getPersonCountByHobby(Hobby hobby);
+  public List<CityInfo> getAllCityInfos();
+  public List<Company> getCompaniesByEmployeeCount(int empCount);
   
   
 }
