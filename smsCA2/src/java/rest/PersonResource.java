@@ -1,5 +1,6 @@
 package rest;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -9,6 +10,7 @@ import entity.Hobby;
 import entity.Person;
 import entity.Phone;
 import facade.DBFacade;
+import java.lang.reflect.Type;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -206,6 +208,19 @@ public class PersonResource {
         );
 
         dbf.addPerson(tempPerson);
+    }
+    
+    @POST
+    @Consumes("application/json")
+    @Path("phone/{phone_id}")
+    public void addPhoneNumberById(@PathParam("phone_id") int id, String content){
+        Person person = dbf.getPersonByID(id);
+        
+        Type type = new TypeToken<Phone>(){}.getType();
+        
+        Phone phone = gson.fromJson(content, type);
+        
+        dbf.addPhoneNumberToEntity(person, phone);
     }
     
     @DELETE
