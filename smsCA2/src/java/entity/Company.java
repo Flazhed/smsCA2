@@ -16,7 +16,8 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c"),
-    @NamedQuery(name = "Company.findByCVR", query = "SELECT c FROM Company c WHERE c.cvr = :cvr")})
+    @NamedQuery(name = "Company.findByCVR", query = "SELECT c FROM Company c WHERE c.cvr = :cvr"),
+    @NamedQuery(name = "Company.findByEmployeeCount", query = "SELECT c FROM Company c WHERE c.numEmployees > :empCount")})
 public class Company extends InfoEntity {
 
     private String name;

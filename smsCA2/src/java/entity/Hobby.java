@@ -22,9 +22,9 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-@NamedQuery(name ="Hobby.findPersonByHobby", query="SELECT h FROM Hobby h WHERE h.name = :hobbyName")})
+@NamedQuery(name ="Hobby.findPersonByHobby", query="SELECT h FROM Hobby h WHERE h.name = :hobbyName"),
+@NamedQuery(name ="Hobby.findPersonCountByHobby", query="SELECT count(p) FROM Hobby h JOIN h.persons p WHERE h.id = :hobbyID")})
 public class Hobby implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,8 +33,10 @@ public class Hobby implements Serializable {
     private String description;
     @ManyToMany(mappedBy = "hobbies")
     private List<Person> persons = new ArrayList<>();
-
+// String q = "SELECT count(p) FROM Hobby p WHERE p.persons"; // select count(o) from Comic c join c.owners o
     public Hobby() {
+        
+       
     }
 
     public Hobby(String name, String description) {

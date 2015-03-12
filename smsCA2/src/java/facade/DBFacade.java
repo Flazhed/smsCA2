@@ -245,14 +245,42 @@ public class DBFacade implements DBFacadeInterface {
         if (city != null) {
             for (Address address : city.getAdresses()) {
                 for (InfoEntity infoEntity : address.getInfoEntities()) {
-                    if(infoEntity.getClass()==Person.class){
+                    if (infoEntity.getClass() == Person.class) {
                         persons.add((Person) infoEntity);
                     }
                 }
             }
         }
 
-        return null;
+        return persons;
+    }
+
+    @Override
+    public long getPersonCountByHobby(Hobby hobby) {
+
+        Query q = em.createNamedQuery("Hobby.findPersonCountByHobby");
+        q.setParameter("hobbyID", hobby.getId());
+        long result = (long) q.getSingleResult();
+        return result;
+
+    }
+
+    @Override
+    public List<CityInfo> getAllCityInfos() {
+
+        List<CityInfo> cityInfos = em.createNamedQuery("CityInfo.findAll").getResultList();
+        return cityInfos;
+    }
+
+    @Override
+    public List<Company> getCompaniesByEmployeeCount(int empCount) {
+        
+        
+        Query q = em.createNamedQuery("Company.findByEmployeeCount");
+        q.setParameter("empCount", empCount);
+        List<Company> companies = q.getResultList();
+        return companies;
+    
     }
 
 }
