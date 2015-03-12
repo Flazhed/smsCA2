@@ -283,4 +283,14 @@ public class DBFacade implements DBFacadeInterface {
     
     }
 
+    @Override
+    public Person deletePerson(Person person) {
+        
+        em.getTransaction().begin();
+        em.remove(person);
+        em.getTransaction().commit();
+        return person;
+        
+    }
+
 }

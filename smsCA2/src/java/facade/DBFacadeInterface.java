@@ -27,6 +27,7 @@ public interface DBFacadeInterface {
   public List<Company> getCompaniesList();
   public Company getCompanyByID(int id);
   public Person addPerson(Person person);
+  public Person deletePerson(Person person);
   public Company addCompany(Company company);
   public Person editPerson(Person person);
   public Company editCompany(Company company);
