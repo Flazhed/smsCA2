@@ -22,8 +22,6 @@ and open the template in the editor.
             <p>To be or not to be MLG</p>
             <p><a class="btn btn-primary btn-lg" href="#" role="button">View Documentation here!</a></p>
         </div>
-        
-        <p id="test"></p>
 
         <form class="form-inline">
             <div class="form-group">
@@ -76,7 +74,8 @@ and open the template in the editor.
 
         <div class="form-group">
             <div class="col-xs-offset-2 col-xs-10">
-                <button type="submitPerson" class="btn btn-primary">Create</button>
+                <button type="button" class="btn btn-primary" id="addperson">Submit</button>
+                <button style="float:right" type="button" class="btn btn-danger" id="deletePerson">Delete</button>
             </div>
         </div>
 
@@ -121,11 +120,16 @@ and open the template in the editor.
         </div>
         <div class="form-group">
             <div class="col-xs-offset-2 col-xs-10">
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="button" class="btn btn-primary" id="kk">Submit</button>
+                <button style="float:right" type="button" class="btn btn-danger">Delete</button>
             </div>
         </div>
 
 </form>
+
+        <div class="alert alert-success" role="alert" id="succecSubmit">Your data was saved! </div>
+
+        <div class="alert alert-danger" role="alert" id="failSubmit">Something went w(r)ong!</div>
 
         <br>
         <div>
@@ -136,8 +140,10 @@ and open the template in the editor.
 
 
             </table>
-            <img id="spinner" src="http://www.labricole.be/wp-content/uploads/AAPL/loaders/Teddy%20Bear%20Loading.gif" >
+            <img id="spinner" src="http://www.schultzlawoffice.com/img/loading/loading-x.gif" >
         </div>
+
+        <p id="test"></p>
 
     </body>
 </html>

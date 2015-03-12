@@ -9,23 +9,42 @@ $(document).ready(function () {
     $("#searchInput2").keyup(function () {
         $("#test").html($("#searchInput2").val());
     });
+
+    //live search
     $("#searchInput").keyup(function () {
 
         $("#spinner").show();
 
-        if($("#searchInput").val() === ""){
+        if ($("#searchInput").val() === "") {
             $("#spinner").hide();
+        } else {
+            liveSearch();
         }
+
 
     });
 
     //Send the a request
-    $("#sendReq").click(getSingleEntity);
+    $("#sendReq").click(getMockData);
+
+    $("#addperson").click(function (){
+        $("#personInput").hide();
+        $("#succecSubmit").show();
+        $('#succecSubmit').delay(2000).fadeOut();
+
+       // for implementation later error info.
+       // $("#failSubmit").show();
+       //$('#failSubmit').delay(2000).fadeOut();
+    });
+
+
 
     //Hide the input fields from the user upon startup.
     $("#personInput").hide();
     $("#companyInput").hide();
     $("#spinner").hide();
+    $("#failSubmit").hide();
+    $("#succecSubmit").hide();
 
     //for later implementation. 
 //   $("#tableData").hide();
@@ -34,7 +53,7 @@ $(document).ready(function () {
     $('.dropdown-toggle').dropdown();
 
     //Click events for the input fields
-    $("#createPerson").click(function() {
+    $("#createPerson").click(function () {
         $("#personInput").toggle();
     });
     $("#createCompany").click(function () {
@@ -43,13 +62,19 @@ $(document).ready(function () {
 });
 
 
-function getSingleEntity() {
+// MOCK DATA SETUP
+
+function getMockData() {
 
     $.getJSON("MOCK_DATA.json", function (json) {
 //        console.log("JSON Data: " + json[1].first_name);
 
         for (var i = 0; i < json.length; i++) {
-            $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'></span>  Edit </button></td>" + "<td>" + json[i].first_name + "</td>" + "<td>" + json[i].last_name + "</td>" + "<td>" + json[i].email + "</td></tr>");
+
+            $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
+            "</span>  Edit </button></td>" + "<td>" + json[i].first_name + "</td>" + "<td>" + json[i].last_name + "</td>" + "<td>" +
+            json[i].email + "</td></tr>");
+
             $("#edit" + i).data(json[i]);
             $("#edit" + i).click(editPerson
             );
@@ -57,25 +82,42 @@ function getSingleEntity() {
 
     });
 
-    // TO be Added when stefan los slowmo is done with the fucking api!!!!!!!
+}
 
-// $("#tableInsertion").append("<td>"+"data.firstName"+"</td>");
+//Function for liveSearch
 
-//    var request = $.ajax({
-//        url: "MOCK_DATA.json",
-//        type: "GET",
-//        dataType: "json"
-//    });
-//    request.done(function (data) {
-//        $("#tableInsertion").html("<td>"+data.firstName+"</td>");
-//    });
+function liveSearch() {
+
+    var request = $.ajax({
+        url: "api/person/complete/" + $("#searchInput").val(),
+        type: "GET",
+        dataType: "json"
+    });
+    request.done(function (json) {
+        if (json === null) {
+            return;
+        } else
+            $("#spinner").hide();
+        for (var i = 0; i < json.length; i++) {
+
+            $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
+            "</span>  Edit </button></td>" + "<td>" + json[i].first_name + "</td>" + "<td>" + json[i].last_name + "</td>" + "<td>" +
+            json[i].email + "</td></tr>");
+
+            $("#edit" + i).data(json[i]);
+            $("#edit" + i).click(editPerson);
+        }
+    });
 
 
 }
 
+// TO be Added when stefan los slowmo is done with the fucking api!!!!!!!
 
-function editPerson(){
-    console.log($(this));
+
+//Function for edit a person, auto fill inputfields
+
+function editPerson() {
 
     var obj = $(this).data();
 
@@ -86,11 +128,7 @@ function editPerson(){
     $('#inputPersonEmail').val(obj.email);
     $('#inputPhone').val(obj.country);
 
-    console.log(obj);
 }
-
-
-
 
 
 //Filter function for table -------------
