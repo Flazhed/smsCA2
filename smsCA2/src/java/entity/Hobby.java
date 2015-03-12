@@ -6,19 +6,25 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Søren
  */
 @Entity
+@NamedQueries({
+@NamedQuery(name ="Hobby.findPersonByHobby", query="SELECT h FROM Hobby h WHERE h.name = :hobbyName")})
 public class Hobby implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,7 +32,7 @@ public class Hobby implements Serializable {
     private String name;
     private String description;
     @ManyToMany(mappedBy = "hobbies")
-    private List<Person> persons;
+    private List<Person> persons = new ArrayList<>();
 
     public Hobby() {
     }
@@ -36,9 +42,6 @@ public class Hobby implements Serializable {
         this.description = description;
     }
 
-    
-    
-    
     public Integer getId() {
         return id;
     }
@@ -71,11 +74,10 @@ public class Hobby implements Serializable {
         this.persons = persons;
     }
 
-    public void addPerson(Person person){
+    public void addPerson(Person person) {
         
         person.getHobbies().add(this);
         persons.add(person);
     }
-    
-   
+
 }

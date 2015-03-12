@@ -78,4 +78,14 @@ public class Address implements Serializable {
         infoEntity.setAddress(this);
         infoEntities.add(infoEntity);
     }
+
+    public List<InfoEntity> getInfoEntities() {
+        return infoEntities;
+    }
+
+    public void setInfoEntities(List<InfoEntity> infoEntities) {
+        this.infoEntities = infoEntities;
+    }
+    
+    
 }
