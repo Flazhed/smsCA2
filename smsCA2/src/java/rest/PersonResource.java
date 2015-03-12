@@ -56,7 +56,7 @@ public class PersonResource {
             jo.addProperty("firstname", p1.getFirstName());
             jo.addProperty("lastname", p1.getLastName());
             jo.addProperty("email", p1.getEmail());
-
+            
         //Missing part, uncommented because it gives nullpointers from the DB
             // As they are not set in the db.
 //        jo.addProperty("street", p.getAddress().getStreet());
@@ -214,8 +214,8 @@ public class PersonResource {
     
     @POST
     @Consumes("application/json")
-    @Path("phone/{phone_id}")
-    public void addPhoneNumberById(@PathParam("phone_id") int id, String content){
+    @Path("phone/{person_id}")
+    public void addPhoneNumberById(@PathParam("person_id") int id, String content){
         Person person = dbf.getPersonByID(id);
         
         Type type = new TypeToken<Phone>(){}.getType();
@@ -223,6 +223,21 @@ public class PersonResource {
         Phone phone = gson.fromJson(content, type);
         
         dbf.addPhoneNumberToEntity(person, phone);
+    }
+    
+    @POST
+    @Consumes("application/json")
+    @Path("hobby/{person_id}")
+    public void addHobbyById(@PathParam("person_id") int id, String content){
+        
+        Person person = dbf.getPersonByID(id);
+        
+        Type type = new TypeToken<Hobby>(){}.getType();
+        
+        Hobby hobby = gson.fromJson(content, type);
+        
+        dbf.addHobbyToPerson(hobby, person);
+        
     }
     
     @DELETE
