@@ -25,18 +25,19 @@ $(document).ready(function () {
     });
 
     //Send the a request
-    $("#sendReq").click(getMockData);
+    $("#sendReq").click(getPersons);
 
-    $("#addperson").click(function (){
+    $("#deletePerson").click(deletePerson);
+
+    $("#addperson").click(function () {
+        addPersonDB();
         $("#personInput").hide();
-        $("#succecSubmit").show();
-        $('#succecSubmit').delay(2000).fadeOut();
-
-       // for implementation later error info.
-       // $("#failSubmit").show();
-       //$('#failSubmit').delay(2000).fadeOut();
     });
 
+    $("#editPerson").click(function () {
+        editPersonDB();
+        $("#personInput").hide();
+    });
 
 
     //Hide the input fields from the user upon startup.
@@ -45,6 +46,7 @@ $(document).ready(function () {
     $("#spinner").hide();
     $("#failSubmit").hide();
     $("#succecSubmit").hide();
+     $("#deletedINFO").hide();
 
     //for later implementation. 
 //   $("#tableData").hide();
@@ -55,6 +57,8 @@ $(document).ready(function () {
     //Click events for the input fields
     $("#createPerson").click(function () {
         $("#personInput").toggle();
+        $("#editPerson").hide();
+        $("#addperson").show();
     });
     $("#createCompany").click(function () {
         $("#companyInput").toggle();
@@ -62,27 +66,132 @@ $(document).ready(function () {
 });
 
 
-// MOCK DATA SETUP
+//----------------------------- PERSON ---------------------------------//
 
-function getMockData() {
+function deletePerson() {
 
-    $.getJSON("MOCK_DATA.json", function (json) {
-//        console.log("JSON Data: " + json[1].first_name);
+    var person = editP;
 
-        for (var i = 0; i < json.length; i++) {
+    $.ajax({
+        url: 'api/person',
+        type: 'DELETE',
+        dataType: 'json',
+        data: person,
+        success: function (data, textStatus, xhr) {
+            $("#deletedINFO").show();
+            $('#deletedINFO').delay(2500).fadeOut();
+            console.log(data);
 
-            $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
-            "</span>  Edit </button></td>" + "<td>" + json[i].first_name + "</td>" + "<td>" + json[i].last_name + "</td>" + "<td>" +
-            json[i].email + "</td></tr>");
-
-            $("#edit" + i).data(json[i]);
-            $("#edit" + i).click(editPerson
-            );
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            console.log('Error in Operation');
         }
-
     });
 
 }
+
+function editPersonDB() {
+
+    editP.firstName = $("#inputPersonName").val();
+    editP.lastName = $("#inputLastname").val();
+    editP.email = $("#inputPersonEmail").val();
+
+
+    console.log(editP);
+
+    // to be added phone array -- phones: [$("#").val()]
+
+    $.ajax({
+        type: "PUT",
+        url: "api/person",
+        // The key needs to match your method's input parameter (case-sensitive).
+        data: JSON.stringify(editP),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $("#succecSubmit").show();
+            $('#succecSubmit').delay(2500).fadeOut();
+            console.log("added " + data);
+        },
+        failure: function (errMsg) {
+            $("#failSubmit").show();
+            $('#failSubmit').delay(2500).fadeOut();
+            alert(errMsg);
+        }
+    });
+
+}
+
+// Get all persons
+function getPersons() {
+
+    $("#spinner").show();
+
+    var request = $.ajax({
+        url: "api/person/complete",
+        type: "GET",
+        dataType: "json"
+    });
+    request.done(function (json) {
+
+        if (json === null) {
+            return;
+        } else
+            $("#spinner").hide();
+
+        //console.log("json obj: " + json);
+
+        $("#tableData").html("");
+
+        for (var i = 0; i < json.length; i++) {
+            $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
+                    "</span>  Edit </button></td>" + "<td>" + json[i].firstName + "</td>" + "<td>" + json[i].lastName + "</td>" + "<td>" +
+                    json[i].email + "</td></tr>");
+            $("#edit" + i).data(json[i]);
+            $("#edit" + i).click(editPerson);
+        }
+    });
+    request.fail(function (data) {
+        $("#spinner").hide();
+        console.log(data.statusText);
+    });
+
+}
+
+//Add persons
+
+function addPerson() {
+
+    var person = {firstName: $("#inputPersonName").val(), lastName: $("#inputLastname").val()
+        , email: $("#inputPersonEmail").val()};
+
+    // to be added phone array -- phones: [$("#").val()]
+
+    console.log(person);
+
+    $.ajax({
+        type: "POST",
+        url: "api/person",
+        // The key needs to match your method's input parameter (case-sensitive).
+        data: JSON.stringify(person),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $("#succecSubmit").show();
+            $('#succecSubmit').delay(2500).fadeOut();
+            console.log("added " + data);
+        },
+        failure: function (errMsg) {
+            $("#failSubmit").show();
+            $('#failSubmit').delay(2500).fadeOut();
+            alert(errMsg);
+        }
+    });
+
+
+
+}
+
 
 //Function for liveSearch
 
@@ -98,38 +207,67 @@ function liveSearch() {
             return;
         } else
             $("#spinner").hide();
-        for (var i = 0; i < json.length; i++) {
 
-            $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
-            "</span>  Edit </button></td>" + "<td>" + json[i].first_name + "</td>" + "<td>" + json[i].last_name + "</td>" + "<td>" +
-            json[i].email + "</td></tr>");
+        console.log("json obj: " + json);
 
-            $("#edit" + i).data(json[i]);
-            $("#edit" + i).click(editPerson);
-        }
+        $("#tableData").html("<tr><td><button id='edit" + 1 + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
+                "</span>  Edit </button></td>" + "<td>" + json.firstName + "</td>" + "<td>" + json.lastName + "</td>" + "<td>" +
+                json.email + "</td></tr>");
+
+    });
+    request.fail(function (data) {
+        $("#spinner").hide();
+        console.log(data.statusText);
     });
 
 
 }
 
-// TO be Added when stefan los slowmo is done with the fucking api!!!!!!!
-
-
 //Function for edit a person, auto fill inputfields
+
+var editP = {};
 
 function editPerson() {
 
+    $("#editPerson").show();
+    $("#addperson").hide();
+
     var obj = $(this).data();
+
+    editP = obj;
 
     $("#personInput").show();
 
-    $('#inputPersonName').val(obj.first_name);
-    $('#inputLastname').val(obj.last_name);
+    $('#inputPersonName').val(obj.firstName);
+    $('#inputLastname').val(obj.lastName);
     $('#inputPersonEmail').val(obj.email);
-    $('#inputPhone').val(obj.country);
+//    $('#inputPhone').val(obj.phones[0]);
 
 }
 
+// MOCK DATA SETUP
+
+function getMockData() {
+
+    $.getJSON("MOCK_DATA.json", function (json) {
+//        console.log("JSON Data: " + json[1].first_name);
+
+        for (var i = 0; i < json.length; i++) {
+
+            $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
+                    "</span>  Edit </button></td>" + "<td>" + json[i].first_name + "</td>" + "<td>" + json[i].last_name + "</td>" + "<td>" +
+                    json[i].email + "</td></tr>");
+
+            $("#edit" + i).data(json[i]);
+            $("#edit" + i).click(editPerson
+                    );
+        }
+
+    });
+
+}
+
+//--------------------------- PERSON  END ---------------------------------//
 
 //Filter function for table -------------
 

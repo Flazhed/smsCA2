@@ -18,9 +18,9 @@ and open the template in the editor.
     <body>
 
         <div class="jumbotron">
-            <h1>Project CA2</h1>
-            <p>To be or not to be MLG</p>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">View Documentation here!</a></p>
+            <h1 style="margin-left: 10px">Project CA2</h1>
+            <p style="margin-left: 10px">The search engine that helps you find exactly what you're looking for. Find the most relevant information, video, images, and answers from all across the Web.</p>
+            <p style="margin-left: 10px"><a class="btn btn-primary btn-lg" href="#" role="button">View Documentation here!</a></p>
         </div>
 
         <form class="form-inline">
@@ -31,7 +31,7 @@ and open the template in the editor.
             <button id="sendReq" type="button" class="btn btn-default">Go!</button>
             <div class="dropdown" style="float:right">
                 
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">    
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">    
       
       Create new
    
@@ -73,8 +73,9 @@ and open the template in the editor.
         </div>
 
         <div class="form-group">
-            <div class="col-xs-offset-2 col-xs-10">
+            <div class="col-xs-offset-2 col-xs-10" id='insertButtonSubmit'>
                 <button type="button" class="btn btn-primary" id="addperson">Submit</button>
+                <button type="button" class="btn btn-primary" id="editPerson">edit</button>
                 <button style="float:right" type="button" class="btn btn-danger" id="deletePerson">Delete</button>
             </div>
         </div>
@@ -130,6 +131,8 @@ and open the template in the editor.
         <div class="alert alert-success" role="alert" id="succecSubmit">Your data was saved! </div>
 
         <div class="alert alert-danger" role="alert" id="failSubmit">Something went w(r)ong!</div>
+        
+        <div class="alert alert-info" role="alert" id="deletedINFO">The selected data was deleted!</div>
 
         <br>
         <div>
