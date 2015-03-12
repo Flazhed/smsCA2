@@ -51,7 +51,8 @@ public class PersonResource {
         for (Person p1 : dbf.getPersonsList()) {
 
             JsonObject jo = new JsonObject();
-
+            
+            jo.addProperty("id", p1.getId());
             jo.addProperty("firstname", p1.getFirstName());
             jo.addProperty("lastname", p1.getLastName());
             jo.addProperty("email", p1.getEmail());
