@@ -6,9 +6,7 @@
 
 $(document).ready(function () {
     //The filter function
-    $("#searchInput2").keyup(function () {
-        $("#test").html($("#searchInput2").val());
-    });
+    $("#searchInput2").keyup(filterPerson);
 
     //live search
     $("#searchInput").keyup(function () {
@@ -30,7 +28,7 @@ $(document).ready(function () {
     $("#deletePerson").click(deletePerson);
 
     $("#addperson").click(function () {
-        addPersonDB();
+        addPerson();
         $("#personInput").hide();
     });
 
@@ -137,6 +135,8 @@ function getPersons() {
         if (json === null) {
             return;
         } else
+            data = json;
+            
             $("#spinner").hide();
 
         //console.log("json obj: " + json);
@@ -271,10 +271,14 @@ function getMockData() {
 
 //Filter function for table -------------
 
-var data = [];
+var data;
+
 function filterData(elem) {
 
-    var bool = elem.sName.search($("#fiName").val()) && elem.sCountryName.search($("#fiName").val());
+console.log(elem.firstName);
+
+    var bool = elem.firstName.search($("#searchInput2").val());
+    console.log(bool);
     if (bool === -1) {
         return false;
     }
@@ -282,9 +286,23 @@ function filterData(elem) {
     return true;
 }
 
-function filterPlayer() {
+function filterPerson() {
 
-    var filteredPlayers = arrPlayers.filter(filterPerson);
+    var json = data.filter(filterData);
+    
+    console.log(json);
+    
+            $("#tableData").html("");
+
+        for (var i = 0; i < json.length; i++) {
+            $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
+                    "</span>  Edit </button></td>" + "<td>" + json[i].firstName + "</td>" + "<td>" + json[i].lastName + "</td>" + "<td>" +
+                    json[i].email + "</td></tr>");
+            $("#edit" + i).data(json[i]);
+            $("#edit" + i).click(editPerson);
+        }
+    
+    
 }
 
 //-------------------------------------
