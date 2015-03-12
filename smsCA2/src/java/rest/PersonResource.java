@@ -20,6 +20,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 
 /**
@@ -53,8 +54,8 @@ public class PersonResource {
             JsonObject jo = new JsonObject();
             
             jo.addProperty("id", p1.getId());
-            jo.addProperty("firstname", p1.getFirstName());
-            jo.addProperty("lastname", p1.getLastName());
+            jo.addProperty("firstName", p1.getFirstName());
+            jo.addProperty("lastName", p1.getLastName());
             jo.addProperty("email", p1.getEmail());
             
         //Missing part, uncommented because it gives nullpointers from the DB
@@ -93,8 +94,8 @@ public class PersonResource {
         JsonObject jo = new JsonObject();
         
         jo.addProperty("id", p1.getId());
-        jo.addProperty("firstname", p1.getFirstName());
-        jo.addProperty("lastname", p1.getLastName());
+        jo.addProperty("firstName", p1.getFirstName());
+        jo.addProperty("lastName", p1.getLastName());
         jo.addProperty("email", p1.getEmail());
 
         //Missing part, uncommented because it gives nullpointers from the DB
@@ -131,8 +132,8 @@ public class PersonResource {
 
             JsonObject jo = new JsonObject();
 
-            jo.addProperty("firstname", p1.getFirstName());
-            jo.addProperty("lastname", p1.getLastName());
+            jo.addProperty("firstName", p1.getFirstName());
+            jo.addProperty("lastName", p1.getLastName());
             jo.addProperty("email", p1.getEmail());
 
         //Missing part, uncommented because it gives nullpointers from the DB
@@ -170,8 +171,8 @@ public class PersonResource {
 
         JsonObject jo = new JsonObject();
 
-        jo.addProperty("firstname", p1.getFirstName());
-        jo.addProperty("lastname", p1.getLastName());
+        jo.addProperty("firstName", p1.getFirstName());
+        jo.addProperty("lastName", p1.getLastName());
         jo.addProperty("email", p1.getEmail());
 
         //Missing part, uncommented because it gives nullpointers from the DB
@@ -212,17 +213,15 @@ public class PersonResource {
         dbf.addPerson(tempPerson);
     }
     
-    @POST
+    @PUT
     @Consumes("application/json")
-    @Path("phone/{person_id}")
-    public void addPhoneNumberById(@PathParam("person_id") int id, String content){
-        Person person = dbf.getPersonByID(id);
+    public void editPerson(String content){
         
-        Type type = new TypeToken<Phone>(){}.getType();
+        Type type = new TypeToken<Person>(){}.getType();
         
-        Phone phone = gson.fromJson(content, type);
+        Person person = gson.fromJson(content, type);
         
-        dbf.addPhoneNumberToEntity(person, phone);
+        dbf.editPerson(person);
     }
     
     @POST
