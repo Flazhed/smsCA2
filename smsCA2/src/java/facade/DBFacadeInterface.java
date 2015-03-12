@@ -5,7 +5,10 @@
  */
 package facade;
 
+import entity.Address;
+import entity.CityInfo;
 import entity.Company;
+import entity.Hobby;
 import entity.InfoEntity;
 import entity.Person;
 import entity.Phone;
@@ -28,5 +31,16 @@ public interface DBFacadeInterface {
   public Person editPerson(Person person);
   public Company editCompany(Company company);
   public Person getPersonByPhoneNumber(String phoneNumber);
+  public Company getCompanyByCVR(int cvr);
+  public List<Person> getPersonsByHobby(Hobby hobby);
+  public Hobby addHobby(Hobby hobby);
+  public Hobby editHobby(Hobby hobby);
+  public Address addAdress(Address address, int zipCode);
+  public CityInfo addCity(CityInfo cityInfo);
+  public Person addHobbyToPerson(Hobby hobby, Person person);
+  public InfoEntity addAddressToInfoEntity(Address address, InfoEntity infoEntity);
+  public Hobby getHobbyById(int id);
+  public List<Person> getPersonsByZipCode(int zipCode);
+  
   
 }

@@ -5,6 +5,7 @@
  */
 package entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -17,14 +18,14 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
-    @NamedQuery(name = "Person.findByPhone", query = "SELECT p FROM Person p")})
+    @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p")})
+//@NamedQuery(name = "Address.findByCity", query = "SELECT a FROM Address a WHERE a.city = :city")
 public class Person extends InfoEntity {
 
     private String firstName;
     private String lastName;
     @ManyToMany
-    private List<Hobby> hobbies;
+    private List<Hobby> hobbies = new ArrayList<>();
 
     public Person() {
     }

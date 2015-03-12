@@ -15,9 +15,10 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c")})
-public class Company extends InfoEntity{
-    
+    @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c"),
+    @NamedQuery(name = "Company.findByCVR", query = "SELECT c FROM Company c WHERE c.cvr = :cvr")})
+public class Company extends InfoEntity {
+
     private String name;
     private String description;
     private int cvr;
@@ -75,8 +76,5 @@ public class Company extends InfoEntity{
     public void setMarketValue(float marketValue) {
         this.marketValue = marketValue;
     }
-    
-    
-    
-    
+
 }
