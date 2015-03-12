@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import entity.Company;
+import entity.exceptions.CompanyNotFoundException;
 import facade.DBFacade;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -63,7 +64,7 @@ public class CompanyResource {
     @GET
     @Path("complete/{cvr}")
     @Produces("application/json")
-    public String getCompanyByCVR(@PathParam("cvr") int cvr) {
+    public String getCompanyByCVR(@PathParam("cvr") int cvr) throws CompanyNotFoundException{
 
         Company company = dbf.getCompanyByCVR(cvr);
         

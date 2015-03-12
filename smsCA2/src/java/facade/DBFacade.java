@@ -7,6 +7,7 @@ import entity.Hobby;
 import entity.InfoEntity;
 import entity.Person;
 import entity.Phone;
+import entity.exceptions.CompanyNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -141,13 +142,13 @@ public class DBFacade implements DBFacadeInterface {
     }
 
     @Override
-    public Company getCompanyByCVR(int cvr) {
+    public Company getCompanyByCVR(int cvr) throws CompanyNotFoundException {
 
         Query q = em.createNamedQuery("Company.findByCVR");
         q.setParameter("cvr", cvr);
         Company c = (Company) q.getSingleResult();
         if (c == null) {
-            //ERRORCODE
+            throw new CompanyNotFoundException("Company with CVR: " + cvr + " was not found");
         }
         return c;
     }
