@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="main.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    </head>
+    <body>
+        <h1>API description:</h1>
+        
+        <table class="table">
+            <tr>
+                <th>GET</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>api/person/complete</td>
+                <td>Returns all persons in the DB with all info</td>
+            </tr>
+            
+            <tr>
+                <td>api/person/complete/{id}</td>
+                <td>Returns the person with the given id in the DB with all info</td>
+            </tr>
+            
+            <tr>
+                <td>api/person/contactinfo</td>
+                <td>Returns the person with the given id in the DB with only contactinfo</td>
+            </tr>
+            
+            <tr>
+                <td>api/person/contactinfo/{id}</td>
+                <td>Returns the person with the given id in the DB with only contactinfo</td>
+            </tr>
+            
+            <tr>
+                <td>api/person/contactinfo/{id}</td>
+                <td>Returns the person with the given id in the DB with only contactinfo</td>
+            </tr>
+            
+        </table>
+        
+        <table class="table">
+            <tr>
+                <th>POST</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>api/person</td>
+                <td>Add a person the the DB. the JSON object must only cointain firstName,lastName,email</td>
+            </tr>
+            
+            <tr>
+                <td>api/person/hobby/{person_id}</td>
+                <td>Add the given person a hobby, the hobby must exist in the DB allready to succede</td>
+            </tr>
+            
+            <tr>
+                <td>api/person/find</td>
+                <td>send a text/plain string containing the name you search for, a list of JSON elements will be returned</td>
+            </tr>
+            
+            <tr>
+                <td>api/person/phone/find</td>
+                <td>send a text/plain string containing the phone number you search for, a JSON element will be returned</td>
+            </tr>
+            
+        </table>
+        
+        <table class="table">
+            <tr>
+                <th>PUT</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>api/person</td>
+                <td>Changes a current person in the DB, takes a JSON person element</td>
+            </tr>
+            
+        </table>
+        
+        <table class="table">
+            <tr>
+                <th>DELETE</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>api/person</td>
+                <td>Remove a existing person in the DB, takes a JSON Person element</td>
+            </tr>
+            
+        </table>
+
+    </body>
+</html>
