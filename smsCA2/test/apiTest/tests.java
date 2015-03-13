@@ -8,6 +8,7 @@ package apiTest;
 import entity.Company;
 import entity.InfoEntity;
 import entity.Person;
+import entity.exceptions.PersonNotFoundException;
 import facade.DBFacade;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class tests {
     @BeforeClass
     public static void setUpClass() {
 
-        //setup for persons
+       //setup for persons
         persons = new ArrayList<>();
         companies = new ArrayList<>();
 
@@ -71,6 +72,8 @@ public class tests {
 
     @Before
     public void setUp() {
+        
+         
 
     }
 
@@ -84,7 +87,7 @@ public class tests {
     // @Test
     // public void hello() {}
     @Test
-    public void getSingleEntity() {
+    public void getSingleEntity() throws PersonNotFoundException {
 
         Person dbUser = facade.getPersonByID(persons.get(1).getId());
 
@@ -122,5 +125,52 @@ public class tests {
         assertEquals(companies, dbCompanies);
 
     }
+    
+    @Test
+    public void searchPersonByName(){
+        
+        Company companyBySearch = facade.getCompaniesBySearch("DBA").get(0);
+        Company companyByList = companies.get(0);
+        assertEquals(companyBySearch, companyByList);
+        
+    }
+    
+    @Test
+    public void searchCompanyByName(){
+        
+        Person personBySearch = facade.getPersonsByNameSearch("Hans Hansen").get(0);
+        Person personByList = persons.get(0);
+        assertEquals(personBySearch, personByList);
+        
+    }
+    
+    @Test(expected = PersonNotFoundException.class)
+    public void deletePerson() throws PersonNotFoundException{
+        Person person = new Person("Carsten", "Hansen", "some@mail.com");
+        facade.addPerson(person);
+        assertEquals(person, facade.getPersonByID(person.getId()));
+        facade.deletePerson(person);
+        assertFalse(person.equals(facade.getPersonByID(person.getId())));
+    }
 
+    
+    @Test
+    public void editPerson() throws PersonNotFoundException{
+        
+        Person p = persons.get(3);
+        String newFirstName = "Achimedes";
+        assertFalse(p.getFirstName().equals(newFirstName));
+        p.setFirstName(newFirstName);
+        facade.editPerson(p);
+        assertTrue(facade.getPersonByID(p.getId()).getFirstName().equals(newFirstName));
+    }
+    
+    @Test
+    public void getCompaniesByEmployeeCount(){
+        int empCount = 0;
+        List<Company> companies = facade.getCompaniesByEmployeeCount(empCount);
+        assertTrue(companies.size() == 1);
+    }
+    
+    
 }
