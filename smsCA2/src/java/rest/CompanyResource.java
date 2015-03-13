@@ -36,6 +36,36 @@ public class CompanyResource {
         gson = new Gson();
     }
 
+    
+        @GET
+    @Path("companyEmpCount/{count}")
+    @Produces("application/json")
+    public String companyEmpCount(@PathParam("count") int count){
+        
+            JsonArray companies = new JsonArray();
+
+        for (Company company : dbf.getCompaniesByEmployeeCount(count)) {
+
+            JsonObject jo = new JsonObject();
+
+            jo.addProperty("id", company.getId());
+            jo.addProperty("cvr", company.getCvr());
+            jo.addProperty("name", company.getName());
+            jo.addProperty("description", company.getDescription());
+            jo.addProperty("email", company.getEmail());
+            jo.addProperty("employees", company.getNumEmployees());
+            jo.addProperty("marketValue", company.getMarketValue());
+
+            companies.add(jo);
+
+        }
+
+        return gson.toJson(companies);
+        
+        
+        
+    }
+    
     @GET
     @Path("complete")
     @Produces("application/json")

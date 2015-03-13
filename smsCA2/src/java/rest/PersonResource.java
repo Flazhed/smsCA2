@@ -44,44 +44,52 @@ public class PersonResource {
     }
 
     
+    
     @GET
-    @Path("zipCode/{zip}")
+    @Path("getPersonsByHobby/{id}")
     @Produces("application/json")
-    public String getPersonsByZipCode(@PathParam("zip") int zip){
+    public String getPersonsByHobby(@PathParam("id") int id){
         
         JsonArray persons = new JsonArray();
 
-        for (Person p1 : dbf.getPersonsByZipCode(zip)) {
+        for (Person p : dbf.getPersonsByHobby(dbf.getHobbyById(id))) {
 
-            JsonObject jo = new JsonObject();
+           JsonObject jo = new JsonObject();
 
-            jo.addProperty("id", p1.getId());
-            jo.addProperty("firstName", p1.getFirstName());
-            jo.addProperty("lastName", p1.getLastName());
-            jo.addProperty("email", p1.getEmail());
+            jo.addProperty("id", p.getId());
+            jo.addProperty("firstName", p.getFirstName());
+            jo.addProperty("lastName", p.getLastName());
+            jo.addProperty("email", p.getEmail());
 
             //Missing part, uncommented because it gives nullpointers from the DB
             // As they are not set in the db.
-//        jo.addProperty("street", p.getAddress().getStreet());
-//        jo.addProperty("city", p.getAddress().getCityInfo().getCity());
-//        jo.addProperty("zipCode", p.getAddress().getCityInfo().getZipCode());
-//        JsonArray hobbies = new JsonArray();
-//        for (Hobby hobby : p.getHobbies()) {
-//            
-//            JsonObject h = new JsonObject();
-//            h.addProperty(hobby.getName(), hobby.getDescription());
-//        }
-//        jo.add("hobbies", hobbies);
+            if (p.getAddress()!=(null)) {
+                jo.addProperty("street", p.getAddress().getStreet());
+                jo.addProperty("city", p.getAddress().getCityInfo().getCity());
+                jo.addProperty("zipCode", p.getAddress().getCityInfo().getZipCode());
+            }
+            if (p.getHobbies()!=(null)) {
+                JsonArray hobbies = new JsonArray();
+                for (Hobby hobby : p.getHobbies()) {
+
+                    JsonObject h = new JsonObject();
+                    h.addProperty(hobby.getName(), hobby.getDescription());
+                    hobbies.add(h);
+                }
+                jo.add("hobbies", hobbies);
+            }
+            if(p.getPhoneNumbers()!=null){
             JsonArray phones = new JsonArray();
-            for (Phone phone : p1.getPhoneNumbers()) {
+            for (Phone phone : p.getPhoneNumbers()) {
 
                 JsonObject h = new JsonObject();
                 h.addProperty(phone.getNumber(), phone.getDescription());
                 phones.add(h);
             }
             jo.add("phones", phones);
-
+            }
             persons.add(jo);
+            
         }
 
         return gson.toJson(persons);
@@ -90,42 +98,99 @@ public class PersonResource {
     }
     
     @GET
-    @Path("complete")
+    @Path("zipCode/{zip}")
     @Produces("application/json")
-    public String getAllPersons() {
+    public String getPersonsByZipCode(@PathParam("zip") int zip) {
 
         JsonArray persons = new JsonArray();
 
-        for (Person p1 : dbf.getPersonsList()) {
+        for (Person p : dbf.getPersonsByZipCode(zip)) {
 
-            JsonObject jo = new JsonObject();
+           JsonObject jo = new JsonObject();
 
-            jo.addProperty("id", p1.getId());
-            jo.addProperty("firstName", p1.getFirstName());
-            jo.addProperty("lastName", p1.getLastName());
-            jo.addProperty("email", p1.getEmail());
+            jo.addProperty("id", p.getId());
+            jo.addProperty("firstName", p.getFirstName());
+            jo.addProperty("lastName", p.getLastName());
+            jo.addProperty("email", p.getEmail());
 
             //Missing part, uncommented because it gives nullpointers from the DB
             // As they are not set in the db.
-//        jo.addProperty("street", p.getAddress().getStreet());
-//        jo.addProperty("city", p.getAddress().getCityInfo().getCity());
-//        jo.addProperty("zipCode", p.getAddress().getCityInfo().getZipCode());
-//        JsonArray hobbies = new JsonArray();
-//        for (Hobby hobby : p.getHobbies()) {
-//            
-//            JsonObject h = new JsonObject();
-//            h.addProperty(hobby.getName(), hobby.getDescription());
-//        }
-//        jo.add("hobbies", hobbies);
+            if (p.getAddress()!=(null)) {
+                jo.addProperty("street", p.getAddress().getStreet());
+                jo.addProperty("city", p.getAddress().getCityInfo().getCity());
+                jo.addProperty("zipCode", p.getAddress().getCityInfo().getZipCode());
+            }
+            if (p.getHobbies()!=(null)) {
+                JsonArray hobbies = new JsonArray();
+                for (Hobby hobby : p.getHobbies()) {
+
+                    JsonObject h = new JsonObject();
+                    h.addProperty(hobby.getName(), hobby.getDescription());
+                    hobbies.add(h);
+                }
+                jo.add("hobbies", hobbies);
+            }
+            if(p.getPhoneNumbers()!=null){
             JsonArray phones = new JsonArray();
-            for (Phone phone : p1.getPhoneNumbers()) {
+            for (Phone phone : p.getPhoneNumbers()) {
 
                 JsonObject h = new JsonObject();
                 h.addProperty(phone.getNumber(), phone.getDescription());
                 phones.add(h);
             }
             jo.add("phones", phones);
+            }
+            persons.add(jo);
+            
+        }
 
+        return gson.toJson(persons);
+
+    }
+
+    @GET
+    @Path("complete")
+    @Produces("application/json")
+    public String getAllPersons() {
+
+        JsonArray persons = new JsonArray();
+
+        for (Person p : dbf.getPersonsList()) {
+
+            JsonObject jo = new JsonObject();
+
+            jo.addProperty("id", p.getId());
+            jo.addProperty("firstName", p.getFirstName());
+            jo.addProperty("lastName", p.getLastName());
+            jo.addProperty("email", p.getEmail());
+
+            //Missing part, uncommented because it gives nullpointers from the DB
+            // As they are not set in the db.
+            if (p.getAddress()!=(null)) {
+                jo.addProperty("street", p.getAddress().getStreet());
+                jo.addProperty("city", p.getAddress().getCityInfo().getCity());
+                jo.addProperty("zipCode", p.getAddress().getCityInfo().getZipCode());
+            }
+            if (p.getHobbies()!=(null)) {
+                JsonArray hobbies = new JsonArray();
+                for (Hobby hobby : p.getHobbies()) {
+
+                    JsonObject h = new JsonObject();
+                    h.addProperty(hobby.getName(), hobby.getDescription());
+                    hobbies.add(h);
+                }
+                jo.add("hobbies", hobbies);
+            }
+            if(p.getPhoneNumbers()!=null){
+            JsonArray phones = new JsonArray();
+            for (Phone phone : p.getPhoneNumbers()) {
+
+                JsonObject h = new JsonObject();
+                h.addProperty(phone.getNumber(), phone.getDescription());
+                phones.add(h);
+            }
+            jo.add("phones", phones);
+            }
             persons.add(jo);
         }
 
@@ -355,7 +420,6 @@ public class PersonResource {
     @Path("phone/find")
     @Produces("application/json")
     public String searchByPhone(String content) throws PersonNotFoundException {
-
 
         Person p1 = dbf.getPersonByPhoneNumber(content);
 
