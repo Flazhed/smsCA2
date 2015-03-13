@@ -28,7 +28,8 @@ public class CompanyNotFoundExceptionMapper implements
 
     @Override
     public Response toResponse(CompanyNotFoundException e) {
-        ErrorMessage err = new ErrorMessage(e, 404, false);
+        // boolean isDebug = context.getInitParameter("debug").equals("true");
+        ErrorMessage err = new ErrorMessage(e, 404, true);
         err.setDescription("Company was not found!");
         return Response.status(404)
                 .entity(gson.toJson(err))

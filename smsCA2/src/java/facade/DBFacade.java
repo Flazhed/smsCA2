@@ -146,8 +146,16 @@ public class DBFacade implements DBFacadeInterface {
 
         Query q = em.createNamedQuery("Company.findByCVR");
         q.setParameter("cvr", cvr);
-        Company c = (Company) q.getSingleResult();
+        Company c;
+        try {
+            c = (Company) q.getSingleResult();
+        } catch (Exception e) {
+            c = null;
+        }
+        
+        System.out.println(c);
         if (c == null) {
+            System.out.println("INTO THE ERROR");
             throw new CompanyNotFoundException("Company with CVR: " + cvr + " was not found");
         }
         return c;

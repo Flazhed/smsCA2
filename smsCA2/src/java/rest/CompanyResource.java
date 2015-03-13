@@ -68,17 +68,17 @@ public class CompanyResource {
 
         Company company = dbf.getCompanyByCVR(cvr);
         
-//        JsonObject jo = new JsonObject();
-//
-//        jo.addProperty("id", company.getId());
-//        jo.addProperty("cvr", company.getCvr());
-//        jo.addProperty("name", company.getName());
-//        jo.addProperty("description", company.getDescription());
-//        jo.addProperty("email", company.getEmail());
-//        jo.addProperty("employees", company.getNumEmployees());
-//        jo.addProperty("marketValue", company.getMarketValue());
+        JsonObject jo = new JsonObject();
 
-        return gson.toJson(company);
+        jo.addProperty("id", company.getId());
+        jo.addProperty("cvr", company.getCvr());
+        jo.addProperty("name", company.getName());
+        jo.addProperty("description", company.getDescription());
+        jo.addProperty("email", company.getEmail());
+        jo.addProperty("employees", company.getNumEmployees());
+        jo.addProperty("marketValue", company.getMarketValue());
+
+        return gson.toJson(jo);
     }
 
 }
