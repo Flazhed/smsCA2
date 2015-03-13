@@ -53,13 +53,13 @@ public class PersonResource {
         for (Person p1 : dbf.getPersonsList()) {
 
             JsonObject jo = new JsonObject();
-            
+
             jo.addProperty("id", p1.getId());
             jo.addProperty("firstName", p1.getFirstName());
             jo.addProperty("lastName", p1.getLastName());
             jo.addProperty("email", p1.getEmail());
-            
-        //Missing part, uncommented because it gives nullpointers from the DB
+
+            //Missing part, uncommented because it gives nullpointers from the DB
             // As they are not set in the db.
 //        jo.addProperty("street", p.getAddress().getStreet());
 //        jo.addProperty("city", p.getAddress().getCityInfo().getCity());
@@ -76,6 +76,7 @@ public class PersonResource {
 
                 JsonObject h = new JsonObject();
                 h.addProperty(phone.getNumber(), phone.getDescription());
+                phones.add(h);
             }
             jo.add("phones", phones);
 
@@ -93,7 +94,7 @@ public class PersonResource {
         Person p1 = dbf.getPersonByID(id);
 
         JsonObject jo = new JsonObject();
-        
+
         jo.addProperty("id", p1.getId());
         jo.addProperty("firstName", p1.getFirstName());
         jo.addProperty("lastName", p1.getLastName());
@@ -116,6 +117,7 @@ public class PersonResource {
 
             JsonObject h = new JsonObject();
             h.addProperty(phone.getNumber(), phone.getDescription());
+            phones.add(h);
         }
         jo.add("phones", phones);
 
@@ -137,7 +139,7 @@ public class PersonResource {
             jo.addProperty("lastName", p1.getLastName());
             jo.addProperty("email", p1.getEmail());
 
-        //Missing part, uncommented because it gives nullpointers from the DB
+            //Missing part, uncommented because it gives nullpointers from the DB
             // As they are not set in the db.
 //        jo.addProperty("street", p.getAddress().getStreet());
 //        jo.addProperty("city", p.getAddress().getCityInfo().getCity());
@@ -154,6 +156,7 @@ public class PersonResource {
 
                 JsonObject h = new JsonObject();
                 h.addProperty(phone.getNumber(), phone.getDescription());
+                phones.add(h);
             }
             jo.add("phones", phones);
 
@@ -193,6 +196,7 @@ public class PersonResource {
 
             JsonObject h = new JsonObject();
             h.addProperty(phone.getNumber(), phone.getDescription());
+            phones.add(h);
         }
         jo.add("phones", phones);
 
@@ -213,37 +217,39 @@ public class PersonResource {
 
         dbf.addPerson(tempPerson);
     }
-    
+
     @PUT
     @Consumes("application/json")
-    public void editPerson(String content){
-        
-        Type type = new TypeToken<Person>(){}.getType();
-        
+    public void editPerson(String content) {
+
+        Type type = new TypeToken<Person>() {
+        }.getType();
+
         Person person = gson.fromJson(content, type);
-        
+
         dbf.editPerson(person);
     }
-    
+
     @POST
     @Consumes("application/json")
     @Path("hobby/{person_id}")
-    public void addHobbyById(@PathParam("person_id") int id, String content) throws PersonNotFoundException{
-        
+    public void addHobbyById(@PathParam("person_id") int id, String content) throws PersonNotFoundException {
+
         Person person = dbf.getPersonByID(id);
-        
-        Type type = new TypeToken<Hobby>(){}.getType();
-        
+
+        Type type = new TypeToken<Hobby>() {
+        }.getType();
+
         Hobby hobby = gson.fromJson(content, type);
-        
+
         dbf.addHobbyToPerson(hobby, person);
-        
+
     }
-    
+
     @DELETE
     @Consumes("application/json")
-    public void deletePerson(String content) throws PersonNotFoundException{
-        
+    public void deletePerson(String content) throws PersonNotFoundException {
+
         JsonObject jo = new JsonParser().parse(content).getAsJsonObject();
 
         int id = jo.get("id").getAsInt();
@@ -252,27 +258,25 @@ public class PersonResource {
 
         dbf.deletePerson(tempPerson);
     }
-    
+
     @POST
-    @Consumes("application/json")
+    @Consumes("text/plain")
     @Path("find")
     @Produces("application/json")
-    public String searchByName(String content) throws PersonNotFoundException{
-        
-        
-        
+    public String searchByName(String content) throws PersonNotFoundException {
+
         JsonArray persons = new JsonArray();
 
         for (Person p1 : dbf.getPersonsByNameSearch(content)) {
 
             JsonObject jo = new JsonObject();
-            
+
             jo.addProperty("id", p1.getId());
             jo.addProperty("firstName", p1.getFirstName());
             jo.addProperty("lastName", p1.getLastName());
             jo.addProperty("email", p1.getEmail());
-            
-        //Missing part, uncommented because it gives nullpointers from the DB
+
+            //Missing part, uncommented because it gives nullpointers from the DB
             // As they are not set in the db.
 //        jo.addProperty("street", p.getAddress().getStreet());
 //        jo.addProperty("city", p.getAddress().getCityInfo().getCity());
@@ -289,15 +293,56 @@ public class PersonResource {
 
                 JsonObject h = new JsonObject();
                 h.addProperty(phone.getNumber(), phone.getDescription());
+                phones.add(h);
             }
             jo.add("phones", phones);
 
             persons.add(jo);
         }
-        
+
         return gson.toJson(persons);
-        
+
     }
 
-    
+    @POST
+    @Consumes("text/plain")
+    @Path("phone/find")
+    @Produces("application/json")
+    public String searchByPhone(String content) throws PersonNotFoundException {
+
+
+        Person p1 = dbf.getPersonByPhoneNumber(content);
+
+        JsonObject jo = new JsonObject();
+
+        jo.addProperty("id", p1.getId());
+        jo.addProperty("firstName", p1.getFirstName());
+        jo.addProperty("lastName", p1.getLastName());
+        jo.addProperty("email", p1.getEmail());
+
+        //Missing part, uncommented because it gives nullpointers from the DB
+        // As they are not set in the db.
+//        jo.addProperty("street", p.getAddress().getStreet());
+//        jo.addProperty("city", p.getAddress().getCityInfo().getCity());
+//        jo.addProperty("zipCode", p.getAddress().getCityInfo().getZipCode());
+//        JsonArray hobbies = new JsonArray();
+//        for (Hobby hobby : p.getHobbies()) {
+//            
+//            JsonObject h = new JsonObject();
+//            h.addProperty(hobby.getName(), hobby.getDescription());
+//        }
+//        jo.add("hobbies", hobbies);
+        JsonArray phones = new JsonArray();
+        for (Phone phone : p1.getPhoneNumbers()) {
+
+            JsonObject h = new JsonObject();
+            h.addProperty(phone.getNumber(), phone.getDescription());
+            phones.add(h);
+        }
+        jo.add("phones", phones);
+
+        return gson.toJson(jo);
+
+    }
+
 }
