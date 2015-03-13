@@ -13,6 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 
@@ -64,10 +65,10 @@ public class CompanyResource {
     @GET
     @Path("complete/{cvr}")
     @Produces("application/json")
-    public String getCompanyByCVR(@PathParam("cvr") int cvr) throws CompanyNotFoundException{
+    public String getCompanyByCVR(@PathParam("cvr") int cvr) throws CompanyNotFoundException {
 
         Company company = dbf.getCompanyByCVR(cvr);
-        
+
         JsonObject jo = new JsonObject();
 
         jo.addProperty("id", company.getId());
@@ -79,6 +80,31 @@ public class CompanyResource {
         jo.addProperty("marketValue", company.getMarketValue());
 
         return gson.toJson(jo);
+    }
+
+    @POST
+    @Consumes("application/json")
+    @Path("find")
+    @Produces("application/json")
+    public String searchByName(String content) throws CompanyNotFoundException {
+
+        JsonArray persons = new JsonArray();
+
+        for (Company c1 : dbf.getCompaniesBySearch(content)) {
+
+            JsonObject jo = new JsonObject();
+
+            jo.addProperty("id", c1.getId());
+            jo.addProperty("name", c1.getName());
+            jo.addProperty("description", c1.getDescription());
+            jo.addProperty("cvr", c1.getCvr());
+            jo.addProperty("numEmployees", c1.getNumEmployees());
+            jo.addProperty("marketValue", c1.getMarketValue());
+
+        }
+
+        return gson.toJson(persons);
+
     }
 
 }

@@ -257,7 +257,7 @@ public class PersonResource {
     @Consumes("application/json")
     @Path("find")
     @Produces("application/json")
-    public String addHobbyById(String content) throws PersonNotFoundException{
+    public String searchByName(String content) throws PersonNotFoundException{
         
         
         
