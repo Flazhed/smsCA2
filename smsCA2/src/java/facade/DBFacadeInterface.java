@@ -12,6 +12,8 @@ import entity.Hobby;
 import entity.InfoEntity;
 import entity.Person;
 import entity.Phone;
+import entity.exceptions.CompanyNotFoundException;
+import entity.exceptions.PersonNotFoundException;
 import java.util.List;
 
 /**
@@ -23,7 +25,7 @@ public interface DBFacadeInterface {
   public Phone addPhoneNumber(Phone phone);//Skal nok ikke bruges for real
   public InfoEntity addPhoneNumberToEntity(InfoEntity infoEntity, Phone phone);
   public List<Person> getPersonsList();
-  public Person getPersonByID(int id);
+  public Person getPersonByID(int id) throws PersonNotFoundException;
   public List<Company> getCompaniesList();
   public Company getCompanyByID(int id);
   public Person addPerson(Person person);
@@ -32,7 +34,7 @@ public interface DBFacadeInterface {
   public Person editPerson(Person person);
   public Company editCompany(Company company);
   public Person getPersonByPhoneNumber(String phoneNumber);
-  public Company getCompanyByCVR(int cvr);
+  public Company getCompanyByCVR(int cvr) throws CompanyNotFoundException;
   public List<Person> getPersonsByHobby(Hobby hobby);
   public Hobby addHobby(Hobby hobby);
   public Hobby editHobby(Hobby hobby);

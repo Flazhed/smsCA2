@@ -9,6 +9,7 @@ import com.google.gson.JsonParser;
 import entity.Hobby;
 import entity.Person;
 import entity.Phone;
+import entity.exceptions.PersonNotFoundException;
 import facade.DBFacade;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -87,7 +88,7 @@ public class PersonResource {
     @GET
     @Path("complete/{person_id}")
     @Produces("application/json")
-    public String getAllPersonById(@PathParam("person_id") int id) {
+    public String getAllPersonById(@PathParam("person_id") int id) throws PersonNotFoundException {
 
         Person p1 = dbf.getPersonByID(id);
 
@@ -165,7 +166,7 @@ public class PersonResource {
     @GET
     @Path("contactinfo/{person_id}")
     @Produces("application/json")
-    public String getAllPersonsContactInfoById(@PathParam("person_id") int id) {
+    public String getAllPersonsContactInfoById(@PathParam("person_id") int id) throws PersonNotFoundException {
 
         Person p1 = dbf.getPersonByID(id);
 
@@ -227,7 +228,7 @@ public class PersonResource {
     @POST
     @Consumes("application/json")
     @Path("hobby/{person_id}")
-    public void addHobbyById(@PathParam("person_id") int id, String content){
+    public void addHobbyById(@PathParam("person_id") int id, String content) throws PersonNotFoundException{
         
         Person person = dbf.getPersonByID(id);
         

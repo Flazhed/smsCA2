@@ -7,6 +7,8 @@ import entity.Hobby;
 import entity.InfoEntity;
 import entity.Person;
 import entity.Phone;
+import entity.exceptions.CompanyNotFoundException;
+import entity.exceptions.PersonNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -39,19 +41,21 @@ public class DBFacade implements DBFacadeInterface {
 
     @Override
     public List<Person> getPersonsList() {
-
+        
         List<Person> persons = em.createNamedQuery("Person.findAll").getResultList();
         return persons;
     }
 
     @Override
-    public Person getPersonByID(int id) {
+    public Person getPersonByID(int id) throws PersonNotFoundException {
 
         Person person = em.find(Person.class, id);
-        if (person == null) {
-            //room for error code
+
+        if (person != null) {
+            return person;
+
         }
-        return person;
+        throw new PersonNotFoundException("Person with id: " + id + " was not found");
 
     }
 
@@ -141,13 +145,20 @@ public class DBFacade implements DBFacadeInterface {
     }
 
     @Override
-    public Company getCompanyByCVR(int cvr) {
+    public Company getCompanyByCVR(int cvr) throws CompanyNotFoundException {
 
         Query q = em.createNamedQuery("Company.findByCVR");
         q.setParameter("cvr", cvr);
-        Company c = (Company) q.getSingleResult();
+        Company c;
+        //Must catch the exception cast by getSingleResult() method
+        try {
+            c = (Company) q.getSingleResult();
+        } catch (Exception e) {
+            c = null;
+        }
+
         if (c == null) {
-            //ERRORCODE
+            throw new CompanyNotFoundException("Company with CVR: " + cvr + " was not found");
         }
         return c;
     }

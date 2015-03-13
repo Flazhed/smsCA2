@@ -29,6 +29,9 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(entity.exceptions.CompanyNotFoundExceptionMapper.class);
+        resources.add(entity.exceptions.GenericExceptionMapper.class);
+        resources.add(entity.exceptions.PersonNotfoundExceptionMapper.class);
         resources.add(rest.CompanyResource.class);
         resources.add(rest.PersonResource.class);
     }
