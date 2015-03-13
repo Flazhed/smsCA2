@@ -45,6 +45,8 @@ public interface DBFacadeInterface {
   public long getPersonCountByHobby(Hobby hobby);
   public List<CityInfo> getAllCityInfos();
   public List<Company> getCompaniesByEmployeeCount(int empCount);
+  public List<Person> getPersonsByNameSearch(String search);
+  public List<Company> getCompaniesBySearch(String search);
   
   
 }

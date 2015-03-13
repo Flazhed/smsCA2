@@ -18,7 +18,8 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p")})
+    @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
+    @NamedQuery(name = "Person.findByName", query = "SELECT p FROM Person p WHERE UPPER(p.firstName) LIKE :search OR UPPER(p.lastName) LIKE :search OR UPPER(CONCAT(p.firstName, ' ', p.lastName)) LIKE :search")})
 //@NamedQuery(name = "Address.findByCity", query = "SELECT a FROM Address a WHERE a.city = :city")
 public class Person extends InfoEntity {
 

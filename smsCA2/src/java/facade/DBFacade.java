@@ -274,23 +274,44 @@ public class DBFacade implements DBFacadeInterface {
 
     @Override
     public List<Company> getCompaniesByEmployeeCount(int empCount) {
-        
-        
+
         Query q = em.createNamedQuery("Company.findByEmployeeCount");
         q.setParameter("empCount", empCount);
         List<Company> companies = q.getResultList();
         return companies;
-    
+
     }
 
     @Override
     public Person deletePerson(Person person) {
-        
+
         em.getTransaction().begin();
         em.remove(person);
         em.getTransaction().commit();
         return person;
+
+    }
+
+    @Override
+    public List<Person> getPersonsByNameSearch(String search) {
+
+        search = "%" + search.toUpperCase() + "%";
+        Query q = em.createNamedQuery("Person.findByName");
+        q.setParameter("search", search);
+        List<Person> persons = q.getResultList();
+        return persons;
+
+    }
+
+    @Override
+    public List<Company> getCompaniesBySearch(String search) {
         
+        
+        search = "%" + search.toUpperCase() + "%";
+        Query q = em.createNamedQuery("Company.findByNameSearch");
+        q.setParameter("search", search);
+        List<Company> companies = q.getResultList();
+        return companies;
     }
 
 }
