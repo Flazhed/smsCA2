@@ -244,13 +244,13 @@ public class PersonResource {
     @Consumes("application/json")
     public void deletePerson(String content) throws PersonNotFoundException{
         
-        //JsonObject jo = new JsonParser().parse(content).getAsJsonObject();
-        
-        //int id = jo.get("id").getAsInt();
-        
-//        Person tempPerson = dbf.getPersonByID(id);
-//        
-//        dbf.deletePerson(tempPerson);
+        JsonObject jo = new JsonParser().parse(content).getAsJsonObject();
+
+        int id = jo.get("id").getAsInt();
+
+        Person tempPerson = dbf.getPersonByID(id);
+
+        dbf.deletePerson(tempPerson);
     }
     
     @POST
