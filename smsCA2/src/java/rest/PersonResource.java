@@ -241,8 +241,16 @@ public class PersonResource {
     }
     
     @DELETE
-    public void deletePerson() throws Exception{
-        throw new Exception("NOT YET IMPLEMENTET");
+    @Consumes("application/json")
+    public void deletePerson(String content) throws PersonNotFoundException{
+        
+        //JsonObject jo = new JsonParser().parse(content).getAsJsonObject();
+        
+        //int id = jo.get("id").getAsInt();
+        
+//        Person tempPerson = dbf.getPersonByID(id);
+//        
+//        dbf.deletePerson(tempPerson);
     }
     
     @POST
