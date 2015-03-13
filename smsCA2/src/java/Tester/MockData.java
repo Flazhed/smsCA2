@@ -177,6 +177,13 @@ public class MockData {
         dbf.addHobbyToPerson(h, p5);
         
         
+        dbf.addAddressToInfoEntity(a1, p1);
+        dbf.addAddressToInfoEntity(a2, p2);
+        dbf.addAddressToInfoEntity(a3, p3);
+        dbf.addAddressToInfoEntity(a4, p4);
+        dbf.addAddressToInfoEntity(a5, p5);
+        
+        
     }
     
 }

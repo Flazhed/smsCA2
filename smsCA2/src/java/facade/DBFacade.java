@@ -253,8 +253,11 @@ public class DBFacade implements DBFacadeInterface {
         Query q = em.createNamedQuery("CityInfo.findByZip", CityInfo.class);
         q.setParameter("zipCode", zipCode);
         CityInfo city = (CityInfo) q.getSingleResult();
+        
         if (city != null) {
+            
             for (Address address : city.getAdresses()) {
+                System.out.println("inside first");
                 for (InfoEntity infoEntity : address.getInfoEntities()) {
                     if (infoEntity.getClass() == Person.class) {
                         persons.add((Person) infoEntity);

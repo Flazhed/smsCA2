@@ -86,7 +86,8 @@ public class Test {
 //        System.out.println(dbf.getCompaniesByEmployeeCount(4).size());
 //        System.out.println(dbf.getPersonsByNameSearch("Jan").size());
 //        System.out.println(dbf.getCompaniesBySearch("buzz").size());
-        dbf.deletePerson(dbf.getPersonByID(460));
+        //dbf.deletePerson(dbf.getPersonByID(460));
+        System.out.println(dbf.getPersonsByZipCode(3000).size());
     }
     
 }
