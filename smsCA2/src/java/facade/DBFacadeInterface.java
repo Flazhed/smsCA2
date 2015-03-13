@@ -13,6 +13,7 @@ import entity.InfoEntity;
 import entity.Person;
 import entity.Phone;
 import entity.exceptions.CompanyNotFoundException;
+import entity.exceptions.PersonNotFoundException;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public interface DBFacadeInterface {
   public Phone addPhoneNumber(Phone phone);//Skal nok ikke bruges for real
   public InfoEntity addPhoneNumberToEntity(InfoEntity infoEntity, Phone phone);
   public List<Person> getPersonsList();
-  public Person getPersonByID(int id);
+  public Person getPersonByID(int id) throws PersonNotFoundException;
   public List<Company> getCompaniesList();
   public Company getCompanyByID(int id);
   public Person addPerson(Person person);
