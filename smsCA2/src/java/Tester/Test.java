@@ -10,6 +10,7 @@ import entity.CityInfo;
 import entity.Hobby;
 import entity.Person;
 import entity.Phone;
+import entity.exceptions.PersonNotFoundException;
 import facade.DBFacade;
 
 /**
@@ -18,7 +19,7 @@ import facade.DBFacade;
  */
 public class Test {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PersonNotFoundException {
         //Persistence.generateSchema("smsCA2PU", null);
 //        EntityManager em = Persistence.createEntityManagerFactory("smsCA2PU").createEntityManager();
         DBFacade dbf = DBFacade.getInstance();
@@ -83,8 +84,9 @@ public class Test {
 //        System.out.println(dbf.getPersonCountByHobby(dbf.getHobbyById(486)));
 //        System.out.println(dbf.getAllCityInfos().size());
 //        System.out.println(dbf.getCompaniesByEmployeeCount(4).size());
-        System.out.println(dbf.getPersonsByNameSearch("Jan").size());
-        System.out.println(dbf.getCompaniesBySearch("buzz").size());
+//        System.out.println(dbf.getPersonsByNameSearch("Jan").size());
+//        System.out.println(dbf.getCompaniesBySearch("buzz").size());
+        dbf.deletePerson(dbf.getPersonByID(455));
     }
     
 }

@@ -9,21 +9,35 @@ $(document).ready(function () {
     $("#searchInput2").keyup(filterPerson);
 
     //live search
-    $("#searchInput").keyup(function () {
+    /*
+     $("#searchInput").keyup(function () {
+     
+     $("#spinner").show();
+     
+     if ($("#searchInput").val() === "") {
+     $("#spinner").hide();
+     } else {
+     liveSearch();
+     }
+     });
+     */
+    //Send the a request
+    $("#sendReq").click(function () {
 
-        $("#spinner").show();
+        var dataToSend = $("#searchInput").val();
 
-        if ($("#searchInput").val() === "") {
-            $("#spinner").hide();
-        } else {
-            liveSearch();
+        if ($('#NamesCheckbox').prop('checked')) {
+            getPersonsByNames(dataToSend);
+        }
+        else if ($('#PhoneCheckbox').prop('checked')) {
+
+        }
+        else if ($('#EmpCheckbox').prop('checked')) {
+
         }
 
 
     });
-
-    //Send the a request
-    $("#sendReq").click(getPersons);
 
     $("#deletePerson").click(deletePerson);
 
@@ -44,7 +58,7 @@ $(document).ready(function () {
     $("#spinner").hide();
     $("#failSubmit").hide();
     $("#succecSubmit").hide();
-     $("#deletedINFO").hide();
+    $("#deletedINFO").hide();
 
     //for later implementation. 
 //   $("#tableData").hide();
@@ -54,6 +68,11 @@ $(document).ready(function () {
 
     //Click events for the input fields
     $("#createPerson").click(function () {
+        //clear fields - should be a smarter way.
+        $("#inputPersonName").val("");
+        $("#inputLastname").val("");
+        $("#inputPersonEmail").val("");
+
         $("#personInput").toggle();
         $("#editPerson").hide();
         $("#addperson").show();
@@ -65,6 +84,89 @@ $(document).ready(function () {
 
 
 //----------------------------- PERSON ---------------------------------//
+
+function getEntityByPhone(data) {
+
+    $("#spinner").show();
+
+    $.ajax({
+        type: "POST",
+        url: "api/person/find",
+        // The key needs to match your method's input parameter (case-sensitive).
+        data: data,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (json) {
+
+            if (json === null) {
+                return;
+            } else
+                $("#spinner").hide();
+
+            //console.log("json obj: " + json);
+
+            $("#tableData").html("");
+
+            for (var i = 0; i < json.length; i++) {
+                $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
+                        "</span>  Edit </button></td>" + "<td>" + json[i].firstName + "</td>" + "<td>" + json[i].lastName + "</td>" + "<td>" +
+                        json[i].email + "</td></tr>");
+                $("#edit" + i).data(json[i]);
+                $("#edit" + i).click(editPerson);
+            }
+
+        },
+        failure: function (errMsg) {
+            $("#failSubmit").show();
+            $('#failSubmit').delay(2500).fadeOut();
+            alert(errMsg);
+        }
+    });
+
+}
+
+function getPersonsByNames(data) {
+
+    $("#spinner").show();
+
+    $.ajax({
+        type: "POST",
+        url: "api/person/find",
+        // The key needs to match your method's input parameter (case-sensitive).
+        data: data,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (json) {
+
+            dataFilter = json;
+
+            if (json === null) {
+                return;
+            } else
+                $("#spinner").hide();
+
+            //console.log("json obj: " + json);
+
+            $("#tableData").html("");
+
+            for (var i = 0; i < json.length; i++) {
+                $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
+                        "</span>  Edit </button></td>" + "<td>" + json[i].firstName + "</td>" + "<td>" + json[i].lastName + "</td>" + "<td>" +
+                        json[i].email + "</td></tr>");
+                $("#edit" + i).data(json[i]);
+                $("#edit" + i).click(editPerson);
+            }
+
+        },
+        failure: function (errMsg) {
+            $("#failSubmit").show();
+            $('#failSubmit').delay(2500).fadeOut();
+            alert(errMsg);
+        }
+    });
+
+}
+
 
 function deletePerson() {
 
@@ -107,9 +209,10 @@ function editPersonDB() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
+            console.log(data);
             $("#succecSubmit").show();
             $('#succecSubmit').delay(2500).fadeOut();
-            console.log("added " + data);
+            getPersons();
         },
         failure: function (errMsg) {
             $("#failSubmit").show();
@@ -135,9 +238,9 @@ function getPersons() {
         if (json === null) {
             return;
         } else
-            data = json;
-            
-            $("#spinner").hide();
+            dataFilter = json;
+
+        $("#spinner").hide();
 
         //console.log("json obj: " + json);
 
@@ -236,7 +339,7 @@ function editPerson() {
 
     editP = obj;
 
-    $("#personInput").show();
+    $("#personInput").toggle();
 
     $('#inputPersonName').val(obj.firstName);
     $('#inputLastname').val(obj.lastName);
@@ -271,13 +374,17 @@ function getMockData() {
 
 //Filter function for table -------------
 
-var data;
+var dataFilter;
 
 function filterData(elem) {
 
-console.log(elem.firstName);
+    console.log(elem.firstName);
 
-    var bool = elem.firstName.search($("#searchInput2").val());
+    var firstNameLower = elem.firstName.toLowerCase();
+
+    var searchLower = $("#searchInput2").val().toLowerCase();
+
+    var bool = firstNameLower.search(searchLower);
     console.log(bool);
     if (bool === -1) {
         return false;
@@ -288,21 +395,21 @@ console.log(elem.firstName);
 
 function filterPerson() {
 
-    var json = data.filter(filterData);
-    
-    console.log(json);
-    
-            $("#tableData").html("");
+    var json = dataFilter.filter(filterData);
 
-        for (var i = 0; i < json.length; i++) {
-            $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
-                    "</span>  Edit </button></td>" + "<td>" + json[i].firstName + "</td>" + "<td>" + json[i].lastName + "</td>" + "<td>" +
-                    json[i].email + "</td></tr>");
-            $("#edit" + i).data(json[i]);
-            $("#edit" + i).click(editPerson);
-        }
-    
-    
+    console.log(json);
+
+    $("#tableData").html("");
+
+    for (var i = 0; i < json.length; i++) {
+        $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
+                "</span>  Edit </button></td>" + "<td>" + json[i].firstName + "</td>" + "<td>" + json[i].lastName + "</td>" + "<td>" +
+                json[i].email + "</td></tr>");
+        $("#edit" + i).data(json[i]);
+        $("#edit" + i).click(editPerson);
+    }
+
+
 }
 
 //-------------------------------------

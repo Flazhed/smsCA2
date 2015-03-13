@@ -20,7 +20,7 @@ and open the template in the editor.
         <div class="jumbotron">
             <h1 style="margin-left: 10px">Project CA2</h1>
             <p style="margin-left: 10px">The search engine that helps you find exactly what you're looking for. Find the most relevant information, video, images, and answers from all across the Web.</p>
-            <p style="margin-left: 10px"><a class="btn btn-primary btn-lg" href="#" role="button">View Documentation here!</a></p>
+            <p style="margin-left: 10px"><a class="btn btn-primary btn-lg" href="doc.html" role="button">View Documentation here!</a></p>
         </div>
 
         <form class="form-inline">
@@ -29,109 +29,123 @@ and open the template in the editor.
                 <input type="text" class="form-control" id="searchInput" placeholder="Search here">
             </div>
             <button id="sendReq" type="button" class="btn btn-default">Go!</button>
+
             <div class="dropdown" style="float:right">
-                
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">    
-      
-      Create new
-   
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" >
-    <li role="presentation"><a href="#" id="createPerson">Create person</a></li>
-    <li role="presentation"><a href="#" id="createCompany">Create company</a></li>
-  </ul>
-</div>
+
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">    
+
+                    Create new
+
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" >
+                    <li role="presentation"><a href="#" id="createPerson">Create person</a></li>
+                    <li role="presentation"><a href="#" id="createCompany">Create company</a></li>
+                </ul>
+            </div>
+           
         </form>
-        
+         <div id="checkBoxesStyle">
+              <label class="checkbox-inline">
+            <input type="checkbox" id="NamesCheckbox" value="names"> Names
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="PhoneCheckbox" value="phoneNo"> Phone no
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="EmpCheckbox" value="empCount"> Employees count 
+        </label>
+            </div>
+       
+
         <br>
-<form class="form-horizontal" id="personInput">
+        <form class="form-horizontal" id="personInput">
 
-        <div class="form-group">
-            <label for="inputPersonName" class="control-label col-xs-2">Firstname</label>
-            <div class="col-xs-10">
-                <input type="text" class="form-control" id="inputPersonName" placeholder="...">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputPassword" class="control-label col-xs-2">Lastname</label>
-            <div class="col-xs-10">
-                <input type="text" class="form-control" id="inputLastname" placeholder="...">
-            </div>
-        </div>
             <div class="form-group">
-            <label for="inputPassword" class="control-label col-xs-2">Phone no</label>
-            <div class="col-xs-10">
-                <input type="text" class="form-control" id="inputPhone" placeholder="...">
+                <label for="inputPersonName" class="control-label col-xs-2">Firstname</label>
+                <div class="col-xs-10">
+                    <input type="text" class="form-control" id="inputPersonName" placeholder="...">
+                </div>
             </div>
-        </div>
             <div class="form-group">
-            <label for="inputPassword" class="control-label col-xs-2">Email</label>
-            <div class="col-xs-10">
-                <input type="email" class="form-control" id="inputPersonEmail" placeholder="...">
+                <label for="inputPassword" class="control-label col-xs-2">Lastname</label>
+                <div class="col-xs-10">
+                    <input type="text" class="form-control" id="inputLastname" placeholder="...">
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-xs-offset-2 col-xs-10" id='insertButtonSubmit'>
-                <button type="button" class="btn btn-primary" id="addperson">Submit</button>
-                <button type="button" class="btn btn-primary" id="editPerson">edit</button>
-                <button style="float:right" type="button" class="btn btn-danger" id="deletePerson">Delete</button>
+            <div class="form-group">
+                <label for="inputPassword" class="control-label col-xs-2">Phone no</label>
+                <div class="col-xs-10">
+                    <input type="text" class="form-control" id="inputPhone" placeholder="...">
+                </div>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="inputPassword" class="control-label col-xs-2">Email</label>
+                <div class="col-xs-10">
+                    <input type="email" class="form-control" id="inputPersonEmail" placeholder="...">
+                </div>
+            </div>
 
-</form>
+            <div class="form-group">
+                <div class="col-xs-offset-2 col-xs-10" id='insertButtonSubmit'>
+                    <button type="button" class="btn btn-primary" id="addperson">Submit</button>
+                    <button type="button" class="btn btn-primary" id="editPerson">edit</button>
+                    <button style="float:right" type="button" class="btn btn-danger" id="deletePerson">Delete</button>
+                </div>
+            </div>
+
+        </form>
         <form class="form-horizontal" id="companyInput">
 
-        <div class="form-group">
-            <label for="inputEmail" class="control-label col-xs-2">Name</label>
-            <div class="col-xs-10">
-                <input type="email" class="form-control" id="inputEmail" placeholder="...">
-            </div>
-        </div>
-                        <div class="form-group">
-            <label for="inputPassword4" class="control-label col-xs-2">Email</label>
-            <div class="col-xs-10">
-                <input type="password" class="form-control" id="inputPassword4" placeholder="...">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputPassword3" class="control-label col-xs-2">Description</label>
-            <div class="col-xs-10">
-                <input type="password" class="form-control" id="inputPassword3" placeholder="...">
-            </div>
-        </div>
             <div class="form-group">
-            <label for="inputPassword2" class="control-label col-xs-2">CVR </label>
-            <div class="col-xs-10">
-                <input type="password" class="form-control" id="inputPassword2" placeholder="...">
+                <label for="inputEmail" class="control-label col-xs-2">Name</label>
+                <div class="col-xs-10">
+                    <input type="email" class="form-control" id="inputEmail" placeholder="...">
+                </div>
             </div>
-        </div>
             <div class="form-group">
-            <label for="inputPassword1" class="control-label col-xs-2">Number Employees</label>
-            <div class="col-xs-10">
-                <input type="password" class="form-control" id="inputPassword1" placeholder="...">
+                <label for="inputPassword4" class="control-label col-xs-2">Email</label>
+                <div class="col-xs-10">
+                    <input type="password" class="form-control" id="inputPassword4" placeholder="...">
+                </div>
             </div>
-        </div>
             <div class="form-group">
-            <label for="inputPassword" class="control-label col-xs-2">Market value</label>
-            <div class="col-xs-10">
-                <input type="password" class="form-control" id="inputPassword" placeholder="...">
+                <label for="inputPassword3" class="control-label col-xs-2">Description</label>
+                <div class="col-xs-10">
+                    <input type="password" class="form-control" id="inputPassword3" placeholder="...">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-xs-offset-2 col-xs-10">
-                <button type="button" class="btn btn-primary" id="kk">Submit</button>
-                <button style="float:right" type="button" class="btn btn-danger">Delete</button>
+            <div class="form-group">
+                <label for="inputPassword2" class="control-label col-xs-2">CVR </label>
+                <div class="col-xs-10">
+                    <input type="password" class="form-control" id="inputPassword2" placeholder="...">
+                </div>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="inputPassword1" class="control-label col-xs-2">Number Employees</label>
+                <div class="col-xs-10">
+                    <input type="password" class="form-control" id="inputPassword1" placeholder="...">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="control-label col-xs-2">Market value</label>
+                <div class="col-xs-10">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="...">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <button type="button" class="btn btn-primary" id="kk">Submit</button>
+                    <button style="float:right" type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
 
-</form>
+        </form>
 
         <div class="alert alert-success" role="alert" id="succecSubmit">Your data was saved! </div>
 
         <div class="alert alert-danger" role="alert" id="failSubmit">Something went w(r)ong!</div>
-        
+
         <div class="alert alert-info" role="alert" id="deletedINFO">The selected data was deleted!</div>
 
         <br>
