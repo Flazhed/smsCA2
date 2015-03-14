@@ -85,7 +85,7 @@ public class PersonResource {
             for (Phone phone : p.getPhoneNumbers()) {
 
                 JsonObject h = new JsonObject();
-                h.addProperty(phone.getNumber(), phone.getDescription());
+                h.addProperty("phoneNumber", phone.getNumber());
                 phones.add(h);
             }
             jo.add("phones", phones);
@@ -192,7 +192,7 @@ public class PersonResource {
             for (Phone phone : p.getPhoneNumbers()) {
 
                 JsonObject h = new JsonObject();
-                h.addProperty(phone.getNumber(), phone.getDescription());
+                h.addProperty("phoneNumber", phone.getNumber());
                 phones.add(h);
             }
             jo.add("phones", phones);
@@ -324,7 +324,13 @@ public class PersonResource {
     @Consumes("application/json")
     public void addPerson(String content) {
 
+        
+        
         JsonObject jo = new JsonParser().parse(content).getAsJsonObject();
+        
+        Phone p = new Phone(jo.get("phones").getAsString(), "Fastnet");
+        
+        dbf.addPhoneNumber(p);
 
         Person tempPerson = new Person(
                 jo.get("firstName").getAsString(),
@@ -333,6 +339,8 @@ public class PersonResource {
         );
 
         dbf.addPerson(tempPerson);
+        
+        dbf.addPhoneNumberToEntity(tempPerson, p);
     }
 
     @PUT

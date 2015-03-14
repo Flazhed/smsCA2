@@ -112,29 +112,33 @@ public class CompanyResource {
         return gson.toJson(jo);
     }
 
-    @POST
-    @Consumes("application/json")
-    @Path("find")
+    @GET
+    @Path("complete/find/{name}")
     @Produces("application/json")
-    public String searchByName(String content) throws CompanyNotFoundException {
+    public String searchByName(@PathParam("name") String name) throws CompanyNotFoundException {
 
-        JsonArray persons = new JsonArray();
+ 
+       JsonArray companies = new JsonArray();
 
-        for (Company c1 : dbf.getCompaniesBySearch(content)) {
+        for (Company company : dbf.getCompaniesBySearch(name)) {
 
             JsonObject jo = new JsonObject();
 
-            jo.addProperty("id", c1.getId());
-            jo.addProperty("name", c1.getName());
-            jo.addProperty("description", c1.getDescription());
-            jo.addProperty("cvr", c1.getCvr());
-            jo.addProperty("numEmployees", c1.getNumEmployees());
-            jo.addProperty("marketValue", c1.getMarketValue());
+            jo.addProperty("id", company.getId());
+            jo.addProperty("cvr", company.getCvr());
+            jo.addProperty("name", company.getName());
+            jo.addProperty("description", company.getDescription());
+            jo.addProperty("email", company.getEmail());
+            jo.addProperty("employees", company.getNumEmployees());
+            jo.addProperty("marketValue", company.getMarketValue());
+
+            companies.add(jo);
 
         }
 
-        return gson.toJson(persons);
-
+        return gson.toJson(companies);
     }
+    
+    
 
 }

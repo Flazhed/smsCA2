@@ -83,7 +83,7 @@ function getCompanyCVR(data) {
 
 }
 
-var editP = {};
+var editP;
 
 function editPerson() {
 
@@ -112,7 +112,7 @@ function getCompanyName(data) {
     $("#spinner1").show();
 
     var request = $.ajax({
-        url: "api/company/find/" + data,
+        url: "api/company/complete/find/" + data,
         type: "GET",
         dataType: "json"
     });

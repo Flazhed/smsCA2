@@ -5,13 +5,15 @@
  */
 
 $(document).ready(function () {
-    
+
+
+
     $('#myTab a').click(function (e) {
-  e.preventDefault();
-  $(this).tab('show');
-});
-    
-    
+        e.preventDefault();
+        $(this).tab('show');
+    });
+
+
     //The filter function
     $("#searchInput2").keyup(filterPerson);
 
@@ -39,13 +41,10 @@ $(document).ready(function () {
         else if ($('#PhoneCheckbox').prop('checked')) {
             getEntityByPhone(dataToSend);
         }
-        else if ($('#EmpCheckbox').prop('checked')) {
-
-        }
         else if ($('#zipCodeBox').prop('checked')) {
             getPersonByZip(dataToSend);
         }
-        else if($("#hobbyBox").prop('checked')){
+        else if ($("#hobbyBox").prop('checked')) {
             getPersonByHobby(40);
         }
 
@@ -57,18 +56,16 @@ $(document).ready(function () {
 
     $("#addperson").click(function () {
         addPerson();
-//        getPersons();
-        $("#personInput").hide();
+        getPersons();
     });
 
     $("#editPerson").click(function () {
         editPersonDB();
-        $("#personInput").hide();
     });
 
 
     //Hide the input fields from the user upon startup.
-    $("#personInput").hide();
+//    $("#personInput").hide();
     $("#companyInput").hide();
     $("#spinner").hide();
     $("#failSubmit").hide();
@@ -82,16 +79,20 @@ $(document).ready(function () {
     $('.dropdown-toggle').dropdown();
 
     //Click events for the input fields
-    $("#createPerson").click(function () {
-        //clear fields - should be a smarter way.
+    $("#createPerson").click('shown.bs.modal', function () {
         $("#inputPersonName").val("");
         $("#inputLastname").val("");
         $("#inputPersonEmail").val("");
-
-        $("#personInput").toggle();
+        $('#inputPhone').val("");
+        $('#inputHobby').val("");
         $("#editPerson").hide();
         $("#addperson").show();
+        $('#myInput').focus();
     });
+
+
+
+
     $("#createCompany").click(function () {
         $("#companyInput").toggle();
     });
@@ -99,6 +100,68 @@ $(document).ready(function () {
 
 
 //----------------------------- PERSON ---------------------------------//
+
+function tableSetupIfArray(json) {
+
+
+
+
+    $("#tableData").html("<thead><th>edit:</th><th>Firstname:</th><th>Lastname:</th><th>PhoneNo:</th><th>email:</th></thead>");
+
+    for (var i = 0; i < json.length; i++) {
+
+        var temp = json[i].phones[0];
+
+        if (temp === undefined) {
+            $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn' data-toggle='modal' data-target='#myModal'><span class='glyphicon glyphicon-pencil' class='btn btn-primary btn-lg'>" +
+                    "</span>  Edit </button></td>" + "<td>" + json[i].firstName + "</td>" + "<td>" + json[i].lastName + "</td>" + "<td>" +
+                    "no number yet" + "</td>" + "<td>" +
+                    json[i].email + "</td></tr>");
+        }
+
+        else {
+            $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn' data-toggle='modal' data-target='#myModal'><span class='glyphicon glyphicon-pencil' class='btn btn-primary btn-lg'>" +
+                    "</span>  Edit </button></td>" + "<td>" + json[i].firstName + "</td>" + "<td>" + json[i].lastName + "</td>" + "<td>" +
+                    json[i].phones[0].phoneNumber + "</td>" + "<td>" +
+                    json[i].email + "</td></tr>");
+        }
+        $("#edit" + i).data(json[i]);
+        $("#edit" + i).click(editItPlez);
+//        $("#edit" + i).click(editPerson);
+        $("#edit" + i).click('shown.bs.modal', function () {
+            console.log("in ");
+            $('#myInput').focus();
+        });
+    }
+
+}
+
+
+function editItPlez() {
+
+    console.log("in editperson");
+
+    $("#editPerson").show();
+    $("#addperson").hide();
+
+    var obj = $(this).data();
+
+    editP = obj;
+//
+//    $("#personInput").toggle();
+
+//    $("#myModal").toggle();
+
+    $('#inputPersonName').val(obj.firstName);
+    $('#inputLastname').val(obj.lastName);
+    $('#inputPersonEmail').val(obj.email);
+    $('#inputPhone').val(obj.phones[0].phoneNumber);
+    $('#inputHobby').val(obj.hobbies[0].name);
+
+    console.log("SOVS");
+    console.log("ja");
+
+}
 
 function getPersonByHobby(data) {
 
@@ -111,7 +174,6 @@ function getPersonByHobby(data) {
         url: "api/person/getPersonsByHobby/" + data,
         // The key needs to match your method's input parameter (case-sensitive).
         dataType: "json",
-
         success: function (json) {
 
             if (json === null) {
@@ -119,15 +181,7 @@ function getPersonByHobby(data) {
             } else
                 $("#spinner").hide();
 
-            $("#tableData").html("<thead><th>edit:</th><th>Firstname:</th><th>Lastname:</th><th>email:</th></thead>");
-
-            for (var i = 0; i < json.length; i++) {
-                $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
-                "</span>  Edit </button></td>" + "<td>" + json[i].firstName + "</td>" + "<td>" + json[i].lastName + "</td>" + "<td>" +
-                json[i].email + "</td></tr>");
-                $("#edit" + i).data(json[i]);
-                $("#edit" + i).click(editPerson);
-            }
+            tableSetupIfArray(json);
 
         },
         failure: function (errMsg) {
@@ -138,6 +192,8 @@ function getPersonByHobby(data) {
     });
 
 }
+
+
 
 function getEntityByPhone(data) {
 
@@ -159,8 +215,8 @@ function getEntityByPhone(data) {
             } else
                 $("#spinner").hide();
 
-           $("#tableData").html("<thead><th>edit:</th><th>Firstname:</th><th>Lastname:</th><th>email:</th></thead>");
-           
+            $("#tableData").html("<thead><th>edit:</th><th>Firstname:</th><th>Lastname:</th><th>email:</th></thead>");
+
 //            for (var i = 0; i < json.length; i++) {
             $("#tableData").append("<tr><td><button id='edit" + 0 + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
                     "</span>  Edit </button></td>" + "<td>" + json.firstName + "</td>" + "<td>" + json.lastName + "</td>" + "<td>" +
@@ -190,7 +246,6 @@ function getPersonByZip(data) {
         url: "api/person/zipCode/" + data,
         // The key needs to match your method's input parameter (case-sensitive).
         dataType: "json",
-        
         success: function (json) {
 
             if (json === null) {
@@ -198,15 +253,7 @@ function getPersonByZip(data) {
             } else
                 $("#spinner").hide();
 
-                      $("#tableData").html("<thead><th>edit:</th><th>Firstname:</th><th>Lastname:</th><th>email:</th></thead>");
-
-            for (var i = 0; i < json.length; i++) {
-                $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
-                        "</span>  Edit </button></td>" + "<td>" + json[i].firstName + "</td>" + "<td>" + json[i].lastName + "</td>" + "<td>" +
-                        json[i].email + "</td></tr>");
-                $("#edit" + i).data(json[i]);
-                $("#edit" + i).click(editPerson);
-            }
+            tableSetupIfArray(json);
 
         },
         failure: function (errMsg) {
@@ -240,15 +287,7 @@ function getPersonsByNames(data) {
 
             //console.log("json obj: " + json);
 
-                    $("#tableData").html("<thead><th>edit:</th><th>Firstname:</th><th>Lastname:</th><th>email:</th></thead>");
-
-            for (var i = 0; i < json.length; i++) {
-                $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
-                        "</span>  Edit </button></td>" + "<td>" + json[i].firstName + "</td>" + "<td>" + json[i].lastName + "</td>" + "<td>" +
-                        json[i].email + "</td></tr>");
-                $("#edit" + i).data(json[i]);
-                $("#edit" + i).click(editPerson);
-            }
+            tableSetupIfArray(json);
 
         },
         failure: function (errMsg) {
@@ -293,7 +332,7 @@ function editPersonDB() {
     editP.firstName = $("#inputPersonName").val();
     editP.lastName = $("#inputLastname").val();
     editP.email = $("#inputPersonEmail").val();
-
+  
 
     console.log(editP);
 
@@ -343,15 +382,7 @@ function getPersons() {
 
         //console.log("json obj: " + json);
 
-        $("#tableData").html("<thead><th>edit:</th><th>Firstname:</th><th>Lastname:</th><th>email:</th></thead>");
-
-        for (var i = 0; i < json.length; i++) {
-            $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
-                    "</span>  Edit </button></td>" + "<td>" + json[i].firstName + "</td>" + "<td>" + json[i].lastName + "</td>" + "<td>" +
-                    json[i].email + "</td></tr>");
-            $("#edit" + i).data(json[i]);
-            $("#edit" + i).click(editPerson);
-        }
+        tableSetupIfArray(json);
     });
     request.fail(function (data) {
         $("#spinner").hide();
@@ -365,7 +396,7 @@ function getPersons() {
 function addPerson() {
 
     var person = {firstName: $("#inputPersonName").val(), lastName: $("#inputLastname").val()
-        , email: $("#inputPersonEmail").val()};
+        , email: $("#inputPersonEmail").val(), phones: $('#inputPhone').val()};
 
     // to be added phone array -- phones: [$("#").val()]
 
@@ -429,9 +460,11 @@ function liveSearch() {
 
 //Function for edit a person, auto fill inputfields
 
-var editP = {};
+var editP;
 
 function editPerson() {
+    console.log("in editperson");
+
 
     $("#editPerson").show();
     $("#addperson").hide();
@@ -442,13 +475,14 @@ function editPerson() {
 
     $("#personInput").toggle();
 
+//    $("#myModal").toggle();
+
     console.log("SOVS");
 
     $('#inputPersonName').val(obj.firstName);
     $('#inputLastname').val(obj.lastName);
     $('#inputPersonEmail').val(obj.email);
-    $('#inputPhone').val("123");
-    $('#inputHobby').val("34566");
+    $('#oleole').val(79879);
 
 }
 
@@ -459,16 +493,7 @@ function getMockData() {
     $.getJSON("MOCK_DATA.json", function (json) {
 //        console.log("JSON Data: " + json[1].first_name);
 
-        for (var i = 0; i < json.length; i++) {
-
-            $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
-                    "</span>  Edit </button></td>" + "<td>" + json[i].first_name + "</td>" + "<td>" + json[i].last_name + "</td>" + "<td>" +
-                    json[i].email + "</td></tr>");
-
-            $("#edit" + i).data(json[i]);
-            $("#edit" + i).click(editPerson
-                    );
-        }
+        tableSetupIfArray();
 
     });
 
@@ -503,15 +528,7 @@ function filterPerson() {
 
     console.log(json);
 
-              $("#tableData").html("<thead><th>edit:</th><th>Firstname:</th><th>Lastname:</th><th>email:</th></thead>");
-
-    for (var i = 0; i < json.length; i++) {
-        $("#tableData").append("<tr><td><button id='edit" + i + "'" + " class='btn'><span class='glyphicon glyphicon-pencil'>" +
-                "</span>  Edit </button></td>" + "<td>" + json[i].firstName + "</td>" + "<td>" + json[i].lastName + "</td>" + "<td>" +
-                json[i].email + "</td></tr>");
-        $("#edit" + i).data(json[i]);
-        $("#edit" + i).click(editPerson);
-    }
+    tableSetupIfArray(json);
 
 
 }
