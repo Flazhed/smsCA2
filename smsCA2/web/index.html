@@ -11,6 +11,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
         <script src="javascript.js"></script>
+        <script src="javascript/company.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="main.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -23,145 +24,193 @@ and open the template in the editor.
             <p style="margin-left: 10px"><a class="btn btn-primary btn-lg" href="doc.html" role="button">View Documentation here!</a></p>
         </div>
 
-        <form class="form-inline">
-            <div class="form-group">
-                <label for="searchInput">Search:</label>
-                <input type="text" class="form-control" id="searchInput" placeholder="Search here">
-            </div>
-            <button id="sendReq" type="button" class="btn btn-default">Go!</button>
-            <button id="getAll" type="button" class="btn btn-default"> Get all  </button>
+        <div role="tabpanel">
 
-            <div class="dropdown" style="float:right">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Person</a></li>
+                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Comapany</a></li>
+            </ul>
 
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">    
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
 
-                    Create new
 
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" >
-                    <li role="presentation"><a href="#" id="createPerson">Create person</a></li>
-                    <li role="presentation"><a href="#" id="createCompany">Create company</a></li>
-                </ul>
-            </div>
-           
-        </form>
-         <div id="checkBoxesStyle">
-              <label class="checkbox-inline">
-            <input type="checkbox" id="NamesCheckbox" value="names"> Names
-        </label>
-        <label class="checkbox-inline">
-            <input type="checkbox" id="PhoneCheckbox" value="phoneNo"> Phone no
-        </label>
-        <label class="checkbox-inline">
-            <input type="checkbox" id="EmpCheckbox" value="empCount"> Employees count 
-        </label>
-            </div>
-       
+                    <form style="margin-top: 15px" class="form-inline">
+                        <div class="form-group">
+                            <label for="searchInput">Search:</label>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search here">
+                        </div>
+                        <button id="sendReq" type="button" class="btn btn-default">Go!</button>
+                        <button id="getAll" type="button" class="btn btn-default"> Get all  </button>
 
-        <br>
-        <form class="form-horizontal" id="personInput">
+                        <div class="dropdown" style="float:right">
 
-            <div class="form-group">
-                <label for="inputPersonName" class="control-label col-xs-2">Firstname</label>
-                <div class="col-xs-10">
-                    <input type="text" class="form-control" id="inputPersonName" placeholder="...">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">    
+
+                                Create new
+
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" >
+                                <li role="presentation"><a href="#" id="createPerson">Create person</a></li>
+                                <li role="presentation"><a href="#" id="createCompany">Create company</a></li>
+                            </ul>
+                        </div>
+
+                    </form>
+                    <div id="checkBoxesStyle">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="NamesCheckbox" value="names"> Names
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="PhoneCheckbox" value="phoneNo"> Phone no
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="zipCodeBox" value="zipCode"> Zipcode 
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="hobbyBox" value="hobby"> Hobby
+                        </label>
+                    </div>
+
+
+                    <br>
+                    <form class="form-horizontal" id="personInput">
+
+                        <div class="form-group">
+                            <label for="inputPersonName" class="control-label col-xs-2">Firstname</label>
+                            <div class="col-xs-10">
+                                <input type="text" class="form-control" id="inputPersonName" placeholder="...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword" class="control-label col-xs-2">Lastname</label>
+                            <div class="col-xs-10">
+                                <input type="text" class="form-control" id="inputLastname" placeholder="...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword" class="control-label col-xs-2">Phone no</label>
+                            <div class="col-xs-10">
+                                <input type="text" class="form-control" id="inputPhone" placeholder="...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword" class="control-label col-xs-2">Hobby</label>
+                            <div class="col-xs-10">
+                                <input type="text" class="form-control" id="inputHobby" placeholder="...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword" class="control-label col-xs-2">Email</label>
+                            <div class="col-xs-10">
+                                <input type="email" class="form-control" id="inputPersonEmail" placeholder="...">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-offset-2 col-xs-10" id='insertButtonSubmit'>
+                                <button type="button" class="btn btn-primary" id="addperson">Submit</button>
+                                <button type="button" class="btn btn-primary" id="editPerson">edit</button>
+                                <button style="float:right" type="button" class="btn btn-danger" id="deletePerson">Delete</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <div class="alert alert-success" role="alert" id="succecSubmit">Your data was saved! </div>
+
+                    <div class="alert alert-danger" role="alert" id="failSubmit">Something went w(r)ong!</div>
+
+                    <div class="alert alert-info" role="alert" id="deletedINFO">The selected data was deleted!</div>
+
+                    <br>
+                    <div>
+                        <input type="text" class="form-control" id="searchInput2" placeholder="Filter option">
+                        <table id='tableData' class='table table-striped'>
+
+
+
+
+                        </table>
+                        <img id="spinner" src="http://www.schultzlawoffice.com/img/loading/loading-x.gif" >
+                    </div>
+
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="profile">
+
+
+                    <form style="margin-top: 15px" class="form-inline">
+                        <div class="form-group">
+                            <label for="searchInput">Search:</label>
+                            <input type="text" class="form-control" id="searchInput1" placeholder="Search here">
+                        </div>
+                        <button id="sendReqCompanies" type="button" class="btn btn-default">Go!</button>
+                        <button id="getAllCompanies" type="button" class="btn btn-default"> Get all Companies  </button>
+
+                        <div class="dropdown" style="float:right">
+
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">    
+
+                                Create new
+
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" >
+                                <li role="presentation"><a href="#" id="createPerson">Create person</a></li>
+                                <li role="presentation"><a href="#" id="createCompany">Create company</a></li>
+                            </ul>
+                        </div>
+
+                    </form>
+                    <div id="checkBoxesStyle">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="CompanyCvr" value="cvr"> CVR
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="CompanyName" value="name">Name
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="countEmploye" value="count"> Count of Employee
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="hobbyBox" value="hobby">..
+                        </label>
+                    </div>
+
+
+                    <br>
+
+
+                    <div class="alert alert-success" role="alert" id="succecSubmit1">Your data was saved! </div>
+
+                    <div class="alert alert-danger" role="alert" id="failSubmit1">Something went w(r)ong!</div>
+
+                    <div class="alert alert-info" role="alert" id="deletedINFO1">The selected data was deleted!</div>
+
+                    <br>
+                    <div>
+                        <input type="text" class="form-control" id="searchInput2" placeholder="Filter option">
+                        <table id='tableData1' class='table table-striped'>
+
+
+
+
+                        </table>
+                        <img id="spinner1" src="http://www.schultzlawoffice.com/img/loading/loading-x.gif" >
+                    </div>
+
+
+
                 </div>
             </div>
-            <div class="form-group">
-                <label for="inputPassword" class="control-label col-xs-2">Lastname</label>
-                <div class="col-xs-10">
-                    <input type="text" class="form-control" id="inputLastname" placeholder="...">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword" class="control-label col-xs-2">Phone no</label>
-                <div class="col-xs-10">
-                    <input type="text" class="form-control" id="inputPhone" placeholder="...">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword" class="control-label col-xs-2">Email</label>
-                <div class="col-xs-10">
-                    <input type="email" class="form-control" id="inputPersonEmail" placeholder="...">
-                </div>
-            </div>
 
-            <div class="form-group">
-                <div class="col-xs-offset-2 col-xs-10" id='insertButtonSubmit'>
-                    <button type="button" class="btn btn-primary" id="addperson">Submit</button>
-                    <button type="button" class="btn btn-primary" id="editPerson">edit</button>
-                    <button style="float:right" type="button" class="btn btn-danger" id="deletePerson">Delete</button>
-                </div>
-            </div>
-
-        </form>
-        <form class="form-horizontal" id="companyInput">
-
-            <div class="form-group">
-                <label for="inputEmail" class="control-label col-xs-2">Name</label>
-                <div class="col-xs-10">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="...">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword4" class="control-label col-xs-2">Email</label>
-                <div class="col-xs-10">
-                    <input type="password" class="form-control" id="inputPassword4" placeholder="...">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="control-label col-xs-2">Description</label>
-                <div class="col-xs-10">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="...">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword2" class="control-label col-xs-2">CVR </label>
-                <div class="col-xs-10">
-                    <input type="password" class="form-control" id="inputPassword2" placeholder="...">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword1" class="control-label col-xs-2">Number Employees</label>
-                <div class="col-xs-10">
-                    <input type="password" class="form-control" id="inputPassword1" placeholder="...">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword" class="control-label col-xs-2">Market value</label>
-                <div class="col-xs-10">
-                    <input type="password" class="form-control" id="inputPassword" placeholder="...">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-xs-offset-2 col-xs-10">
-                    <button type="button" class="btn btn-primary" id="kk">Submit</button>
-                    <button style="float:right" type="button" class="btn btn-danger">Delete</button>
-                </div>
-            </div>
-
-        </form>
-
-        <div class="alert alert-success" role="alert" id="succecSubmit">Your data was saved! </div>
-
-        <div class="alert alert-danger" role="alert" id="failSubmit">Something went w(r)ong!</div>
-
-        <div class="alert alert-info" role="alert" id="deletedINFO">The selected data was deleted!</div>
-
-        <br>
-        <div>
-            <input type="text" class="form-control" id="searchInput2" placeholder="Filter option">
-            <table id='tableData' class='table table-striped'>
-                <thead><th>edit:</th><th>data:</th><th>data:</th><th>data:</th></thead>
-
-
-
-            </table>
-            <img id="spinner" src="http://www.schultzlawoffice.com/img/loading/loading-x.gif" >
         </div>
 
-        <p id="test"></p>
+
 
     </body>
 </html>
