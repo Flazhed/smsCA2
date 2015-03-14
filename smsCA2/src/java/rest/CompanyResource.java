@@ -37,7 +37,7 @@ public class CompanyResource {
     }
 
     
-        @GET
+    @GET
     @Path("companyEmpCount/{count}")
     @Produces("application/json")
     public String companyEmpCount(@PathParam("count") int count){

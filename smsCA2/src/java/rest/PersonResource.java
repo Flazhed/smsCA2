@@ -73,7 +73,9 @@ public class PersonResource {
                 for (Hobby hobby : p.getHobbies()) {
 
                     JsonObject h = new JsonObject();
-                    h.addProperty(hobby.getName(), hobby.getDescription());
+                    h.addProperty("id", hobby.getId());
+                    h.addProperty("description", hobby.getDescription());
+                    h.addProperty("name", hobby.getName());
                     hobbies.add(h);
                 }
                 jo.add("hobbies", hobbies);
@@ -125,7 +127,9 @@ public class PersonResource {
                 for (Hobby hobby : p.getHobbies()) {
 
                     JsonObject h = new JsonObject();
-                    h.addProperty(hobby.getName(), hobby.getDescription());
+                    h.addProperty("id", hobby.getId());
+                    h.addProperty("description", hobby.getDescription());
+                    h.addProperty("name", hobby.getName());
                     hobbies.add(h);
                 }
                 jo.add("hobbies", hobbies);
@@ -176,7 +180,9 @@ public class PersonResource {
                 for (Hobby hobby : p.getHobbies()) {
 
                     JsonObject h = new JsonObject();
-                    h.addProperty(hobby.getName(), hobby.getDescription());
+                    h.addProperty("id", hobby.getId());
+                    h.addProperty("description", hobby.getDescription());
+                    h.addProperty("name", hobby.getName());
                     hobbies.add(h);
                 }
                 jo.add("hobbies", hobbies);
@@ -337,7 +343,9 @@ public class PersonResource {
         }.getType();
 
         Person person = gson.fromJson(content, type);
-
+        System.out.println(person.getFirstName());
+        System.out.println("");;
+        System.out.println(person.getHobbies().size());
         dbf.editPerson(person);
     }
 
