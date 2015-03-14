@@ -29,7 +29,10 @@ and open the template in the editor.
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        <a href="api.html"><p>Description of the REST API</p></a>
+                        <h3>Fejlhåendtering i REST API'et:</h3>
+                        <p>I API'et håendteres exceptions i DBFacade.java, facaden sørger for at kaste en PersonNotFoundException fx. i getPersonById hvis metoden ikke kan finde objectet i databasen. Det samme sker ved CompanyNotFoundException.
+                            Der er også blevet implementeret en exception som bliver kasted ved alle andre fejl, hvis de ikke har</p>
                     </div>
                 </div>
             </div>
@@ -51,7 +54,7 @@ and open the template in the editor.
                 <div class="panel-heading" role="tab" id="headingThree">
                     <h4 class="panel-title">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                           Unit test - strategy and results
+                            Unit test - strategy and results
                         </a>
                     </h4>
                 </div>
@@ -61,31 +64,40 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
-                        <div class="panel panel-default">
+            <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingFour">
                     <h4 class="panel-title">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                         Who did what?
+                            Who did what?(Søren)
                         </a>
                     </h4>
                 </div>
                 <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
                     <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        <p>Vi forsøgte at dele projektet op i tre dele til at starte med så alle kunne arbejde på én gang frem for at vi skulle kigge hinanden 
+                            over skulderen på én computer. Derfor delte vi de tre første dage på tidsplanen ud så fordeling så således ud:</p>
+                        <ul>
+                            <li>Design af entity classes, tables og Facaden er lavet af Søren</li>
+                            <li>Design af REST API’et er lavet af Stefan</li>
+                            <li>Design af webpage der benytter API’et er lavet af Morten</li>
+                            <li>JUnittests: Lavet af Søren og Morten</li>
+                        </ul>
+                        <p>Ligesom i sidste KA startede vi også ud med at holde os til hver vores del, men tilsidst har vi arbejdet lidt på tværs og undervejs har vi udarbejdet JUnittests.</p>
+
                     </div>
                 </div>
             </div>
-                        <div class="panel panel-default">
+            <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingFive">
                     <h4 class="panel-title">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                           Description of the strategy of using inheritance
+                            Description of the strategy of using inheritance(Søren)
                         </a>
                     </h4>
                 </div>
                 <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
                     <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        <p>Vi har benyttet JPA’s standard strategi til at danne vores table der indeholder arv. Strategien ”SINGLE_TABLE” har vi valgt dels fordi det ligger længere væk fra strategien fra sidste semester, hvor vi havde en klasse for stort set alle java klasser. Og dels fordi vi mener at antallet af kolonner er ganske overskuelig. Det vil sige at to klasser der arver fra den samme klasse, har selvfølgelig også nogle forskellige attributer, og derved opstår der null kolonner for en klasse der ikke har de attributter en anden klasse har. Dette er selvfølgelig en ulempe hvis man har mange klasser der arver fra en klasse og disse klasser selv har mange individuelle attributter. Fordelen er dog at søgning kan foregå hurtigere da der kun skal laves en forspørgsel til en table.</p>
                     </div>
                 </div>
             </div>
