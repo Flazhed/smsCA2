@@ -170,13 +170,13 @@ public class MockData {
         //add hobbies to entity
         
         dbf.addHobbyToPerson(h1, p);
-        dbf.addHobbyToPerson(h3, p1);
+        dbf.addHobbyToPerson(h1, p1);
         dbf.addHobbyToPerson(h3, p2);
         dbf.addHobbyToPerson(h4, p3);
         dbf.addHobbyToPerson(h4, p4);
         dbf.addHobbyToPerson(h, p5);
         dbf.addHobbyToPerson(h, p6);
-        dbf.addHobbyToPerson(h, p7);
+        dbf.addHobbyToPerson(h1, p7);
         dbf.addHobbyToPerson(h, p8);
         dbf.addHobbyToPerson(h, p9);
         

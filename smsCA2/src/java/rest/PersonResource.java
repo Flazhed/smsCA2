@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import entity.Hobby;
+import entity.InfoEntity;
 import entity.Person;
 import entity.Phone;
 import entity.exceptions.PersonNotFoundException;
@@ -352,8 +353,10 @@ public class PersonResource {
 
         Person person = gson.fromJson(content, type);
         System.out.println(person.getFirstName());
-        System.out.println("");;
+        System.out.println("");
         System.out.println(person.getHobbies().size());
+        System.out.println("person: " +person.getPhoneNumbers());
+        
         dbf.editPerson(person);
     }
 

@@ -94,7 +94,7 @@ function editPerson() {
 
     editP = obj;
 
-    $("#personInput").toggle();
+//    $("#personInput").toggle();
 
     $('#inputPersonName').val(obj.firstName);
     $('#inputLastname').val(obj.lastName);

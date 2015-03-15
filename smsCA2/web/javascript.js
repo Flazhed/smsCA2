@@ -45,7 +45,7 @@ $(document).ready(function () {
             getPersonByZip(dataToSend);
         }
         else if ($("#hobbyBox").prop('checked')) {
-            getPersonByHobby(40);
+            getPersonByHobby(37);
         }
 
     });
@@ -56,7 +56,6 @@ $(document).ready(function () {
 
     $("#addperson").click(function () {
         addPerson();
-        getPersons();
     });
 
     $("#editPerson").click(function () {
@@ -98,7 +97,7 @@ $(document).ready(function () {
     });
 });
 
-
+var editP;
 //----------------------------- PERSON ---------------------------------//
 
 function tableSetupIfArray(json) {
@@ -129,7 +128,6 @@ function tableSetupIfArray(json) {
         $("#edit" + i).click(editItPlez);
 //        $("#edit" + i).click(editPerson);
         $("#edit" + i).click('shown.bs.modal', function () {
-            console.log("in ");
             $('#myInput').focus();
         });
     }
@@ -139,7 +137,12 @@ function tableSetupIfArray(json) {
 
 function editItPlez() {
 
-    console.log("in editperson");
+    $("#inputPersonName").val("");
+    $("#inputLastname").val("");
+    $("#inputPersonEmail").val("");
+    $('#inputPhone').val("");
+    $('#inputHobby').val("");
+
 
     $("#editPerson").show();
     $("#addperson").hide();
@@ -152,20 +155,20 @@ function editItPlez() {
 
 //    $("#myModal").toggle();
 
+
+
+
     $('#inputPersonName').val(obj.firstName);
     $('#inputLastname').val(obj.lastName);
     $('#inputPersonEmail').val(obj.email);
     $('#inputPhone').val(obj.phones[0].phoneNumber);
     $('#inputHobby').val(obj.hobbies[0].name);
 
-    console.log("SOVS");
-    console.log("ja");
 
 }
 
 function getPersonByHobby(data) {
 
-    console.log(data);
 
     $("#spinner").show();
 
@@ -197,7 +200,6 @@ function getPersonByHobby(data) {
 
 function getEntityByPhone(data) {
 
-    console.log(data);
 
     $("#spinner").show();
 
@@ -222,7 +224,7 @@ function getEntityByPhone(data) {
                     "</span>  Edit </button></td>" + "<td>" + json.firstName + "</td>" + "<td>" + json.lastName + "</td>" + "<td>" +
                     json.email + "</td></tr>");
             $("#edit" + 0).data(json);
-            $("#edit" + 0).click(editPerson);
+            $("#edit" + 0).click(editItPlez);
 //            }
 
         },
@@ -237,7 +239,6 @@ function getEntityByPhone(data) {
 
 function getPersonByZip(data) {
 
-    console.log(data);
 
     $("#spinner").show();
 
@@ -278,6 +279,8 @@ function getPersonsByNames(data) {
         dataType: "json",
         success: function (json) {
 
+        console.log("succ");
+
             dataFilter = json;
 
             if (json === null) {
@@ -290,10 +293,10 @@ function getPersonsByNames(data) {
             tableSetupIfArray(json);
 
         },
-        failure: function (errMsg) {
+        error: function (error) {
             $("#failSubmit").show();
             $('#failSubmit').delay(2500).fadeOut();
-            alert(errMsg);
+            console.log(error);
         }
     });
 
@@ -304,7 +307,6 @@ function deletePerson() {
 
     var person = editP;
 
-    console.log(JSON.stringify(person));
 
     $.ajax({
         url: 'api/person',
@@ -315,9 +317,6 @@ function deletePerson() {
         success: function () {
             $("#deletedINFO").show();
             $('#deletedINFO').delay(2500).fadeOut();
-            $("#personInput").toggle();
-            getPersons();
-
         },
         error: function () {
             $("#failSubmit").show();
@@ -328,13 +327,14 @@ function deletePerson() {
 }
 
 function editPersonDB() {
-
+  console.log("her");
     editP.firstName = $("#inputPersonName").val();
     editP.lastName = $("#inputLastname").val();
     editP.email = $("#inputPersonEmail").val();
-  
 
-    console.log(editP);
+
+    console.log(JSON.stringify(editP));
+
 
     // to be added phone array -- phones: [$("#").val()]
 
@@ -348,7 +348,8 @@ function editPersonDB() {
         success: function (data) {
             $("#succecSubmit").show();
             $('#succecSubmit').delay(2500).fadeOut();
-            getPersons();
+//            getPersons();
+//console.log(data);
         },
         failure: function (errMsg) {
             $("#failSubmit").show();
@@ -362,7 +363,6 @@ function editPersonDB() {
 // Get all persons
 function getPersons() {
 
-    console.log("in here");
 
     $("#spinner").show();
 
@@ -380,13 +380,13 @@ function getPersons() {
 
         $("#spinner").hide();
 
-        //console.log("json obj: " + json);
 
         tableSetupIfArray(json);
     });
-    request.fail(function (data) {
+    request.fail(function (error) {
         $("#spinner").hide();
-        console.log(data.statusText);
+        console.log(error);
+        
     });
 
 }
@@ -400,7 +400,6 @@ function addPerson() {
 
     // to be added phone array -- phones: [$("#").val()]
 
-    console.log(person);
 
     $.ajax({
         type: "POST",
@@ -412,7 +411,6 @@ function addPerson() {
         success: function (data) {
             $("#succecSubmit").show();
             $('#succecSubmit').delay(2500).fadeOut();
-            console.log("added " + data);
         },
         failure: function (errMsg) {
             $("#failSubmit").show();
@@ -441,7 +439,6 @@ function liveSearch() {
         } else
             $("#spinner").hide();
 
-        console.log("json obj: " + json);
 
 
 
@@ -452,7 +449,6 @@ function liveSearch() {
     });
     request.fail(function (data) {
         $("#spinner").hide();
-        console.log(data.statusText);
     });
 
 
@@ -460,10 +456,9 @@ function liveSearch() {
 
 //Function for edit a person, auto fill inputfields
 
-var editP;
+
 
 function editPerson() {
-    console.log("in editperson");
 
 
     $("#editPerson").show();
@@ -477,7 +472,6 @@ function editPerson() {
 
 //    $("#myModal").toggle();
 
-    console.log("SOVS");
 
     $('#inputPersonName').val(obj.firstName);
     $('#inputLastname').val(obj.lastName);

@@ -70,4 +70,9 @@ public class Person extends InfoEntity {
 
     }
 
+    @Override
+    public String toString() {
+        return "Person{" + "firstName=" + firstName + ", lastName=" + lastName + ", hobbies=" + hobbies + '}' + super.getPhoneNumbers();
+    }
+
 }

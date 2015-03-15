@@ -40,13 +40,18 @@ and open the template in the editor.
                 <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Description of the chosen design
+                            Description of the chosen design (Morten)
                         </a>
                     </h4>
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        Da CA’en skulle forstille et online opslag på telefon nummerer, kan der potentielt kan være meget data man vil søge og sortere i. Derfor har vi valgt at når en forespørgsel sende, bliver den behandlet på server og sendt tilbage til klienten. Det mindsker data trafikker mellem server og klient, og gør det meget hurtige for klienten at få et søge resultat. 
+                        <br>
+                        Vi benytter et REST interface, og følger de principper der ligger bag REST. De ressourcer der kan søges på ligger i URL eks. person/find/Lars Mortensen, dette gør det nemt at se hvad der sker. Da REST er tilstandsløs er det nemmere at skalere sit det hen afvejen, hvis man vil have flere funktioner på. En anden væsentlig faktor er, at hvis man har REST api dokumentationen, kan man uafhængigt af hvilket sprog server er skrevet i, hente oplysninger og konvertere det fra JSON.
+                        <br>
+                        For at REST api’et, skal forblive tilstandsløs og ikke direkte håndtere forespørgslerne til databasen benyttet vi en facade. Facade står for at lave selve forespørgslen op mod databasen og sende resultat tilbage til REST. 
+
                     </div>
                 </div>
             </div>
